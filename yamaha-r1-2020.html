@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yamaha YZF-R1 2020 - MotoChiffrage Pro</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #080c14; color: #e6edf3; height: 100vh; display: flex; flex-direction: column; }
+
+    /* HEADER */
+    .header {
+      background: #0d1117;
+      padding: 15px 25px;
+      border-bottom: 1px solid #1a2332;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+    }
+
+    .breadcrumb a { color: #e94560; text-decoration: none; }
+    .breadcrumb span { color: #484f58; }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .panier-btn {
+      background: #e94560;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+
+    .panier-btn:hover { background: #c73652; }
+
+    .panier-count {
+      background: white;
+      color: #e94560;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    /* LAYOUT */
+    .layout {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 260px;
+      background: #0d1117;
+      border-right: 1px solid #1a2332;
+      overflow-y: auto;
+      flex-shrink: 0;
+    }
+
+    .sidebar-title {
+      padding: 15px 20px;
+      font-size: 11px;
+      color: #484f58;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      border-bottom: 1px solid #1a2332;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .zone-count {
+      background: #e94560;
+      color: white;
+      border-radius: 10px;
+      padding: 1px 7px;
+      font-size: 10px;
+    }
+
+    .zone-item {
+      padding: 12px 20px;
+      font-size: 13px;
+      color: #8b949e;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-left: 3px solid transparent;
+      border-bottom: 1px solid #080c14;
+    }
+
+    .zone-item:hover {
+      background: #080c14;
+      color: #e6edf3;
+      border-left-color: #e94560;
+    }
+
+    .zone-item.active {
+      background: #150a0e;
+      color: #e94560;
+      border-left-color: #e94560;
+      font-weight: bold;
+    }
+
+    /* MAIN */
+    .main {
+      flex: 1;
+      overflow-y: auto;
+      padding: 25px;
+    }
+
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: #484f58;
+      text-align: center;
+      gap: 15px;
+    }
+
+    .empty-icon { font-size: 60px; }
+    .empty-state h3 { font-size: 20px; color: #8b949e; }
+    .empty-state p { font-size: 14px; }
+
+    .zone-title {
+      font-size: 22px;
+      font-weight: bold;
+      color: #e6edf3;
+      margin-bottom: 5px;
+    }
+
+    .zone-subtitle {
+      font-size: 13px;
+      color: #484f58;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #1a2332;
+    }
+
+    /* TABLE */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th {
+      background: #0d1117;
+      padding: 10px 15px;
+      text-align: left;
+      color: #484f58;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-bottom: 1px solid #1a2332;
+    }
+
+    td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #0d1117;
+      transition: background 0.2s;
+    }
+
+    tr:hover td { background: #0d1117; }
+
+    .ref-cell {
+      font-family: monospace;
+      color: #58a6ff;
+      font-size: 12px;
+    }
+
+    .prix-cell {
+      color: #3fb950;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .check-cell input {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      accent-color: #e94560;
+    }
+
+    /* TOTAL BAR */
+    .total-bar {
+      position: sticky;
+      bottom: 0;
+      background: #0d1117;
+      border-top: 1px solid #1a2332;
+      padding: 15px 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 20px -25px -25px;
+    }
+
+    .total-info { display: flex; align-items: center; gap: 20px; }
+    .total-label { font-size: 12px; color: #484f58; }
+    .total-amount { font-size: 28px; font-weight: bold; color: #e94560; }
+
+    .btn-devis {
+      background: #e94560;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+
+    .btn-devis:hover { background: #c73652; }
+
+    .btn-reset {
+      background: transparent;
+      color: #484f58;
+      border: 1px solid #1a2332;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+      margin-left: 10px;
+      transition: all 0.2s;
+    }
+
+    .btn-reset:hover { border-color: #e94560; color: #e94560; }
+
+    /* PANIER PANEL */
+    .panier-panel {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 400px;
+      height: 100vh;
+      background: #0d1117;
+      border-left: 1px solid #1a2332;
+      z-index: 1000;
+      transition: right 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .panier-panel.open { right: 0; }
+
+    .panier-header {
+      padding: 20px;
+      border-bottom: 1px solid #1a2332;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .panier-header h2 { font-size: 18px; color: #e6edf3; }
+
+    .panier-close {
+      background: none;
+      border: none;
+      color: #484f58;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .panier-items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 15px;
+    }
+
+    .panier-item {
+      background: #080c14;
+      border: 1px solid #1a2332;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+
+    .panier-item-nom { font-size: 13px; color: #e6edf3; margin-bottom: 4px; }
+    .panier-item-ref { font-size: 11px; color: #58a6ff; font-family: monospace; }
+    .panier-item-prix { font-size: 14px; color: #3fb950; font-weight: bold; margin-top: 6px; }
+
+    .panier-footer {
+      padding: 20px;
+      border-top: 1px solid #1a2332;
+    }
+
+    .panier-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .panier-total-label { color: #484f58; font-size: 13px; }
+    .panier-total-amount { font-size: 28px; font-weight: bold; color: #e94560; }
+
+    .btn-generer {
+      width: 100%;
+      background: #e94560;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 999;
+    }
+
+    .overlay.open { display: block; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="breadcrumb">
+    <a href="index.html">Accueil</a>
+    <span>›</span>
+    <a href="yamaha.html">Yamaha</a>
+    <span>›</span>
+    <a href="yamaha-moto.html">Moto</a>
+    <span>›</span>
+    <span style="color:#e6edf3">YZF-R1 2020</span>
+  </div>
+  <div class="header-right">
+    <span style="font-size:12px;color:#484f58" id="pieces-count">0 piece selectionnee</span>
+    <button class="panier-btn" onclick="ouvrirPanier()">
+      🛒 Panier
+      <span class="panier-count" id="panier-count">0</span>
+    </button>
+  </div>
+</div>
+
+<div class="layout">
+
+  <div class="sidebar">
+    <div class="sidebar-title">
+      Zones
+      <span class="zone-count" id="zone-count">0</span>
+    </div>
+    <div id="liste-zones"></div>
+  </div>
+
+  <div class="main" id="main">
+    <div class="empty-state">
+      <div class="empty-icon">🏍️</div>
+      <h3>Yamaha YZF-R1 2020</h3>
+      <p>Selectionnez une zone dans le menu<br>pour afficher les pieces disponibles</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="overlay" id="overlay" onclick="fermerPanier()"></div>
+
+<div class="panier-panel" id="panier-panel">
+  <div class="panier-header">
+    <h2>🛒 Panier chiffrage</h2>
+    <button class="panier-close" onclick="fermerPanier()">×</button>
+  </div>
+  <div class="panier-items" id="panier-items">
+    <div style="text-align:center;color:#484f58;padding:40px 20px">
+      <div style="font-size:40px;margin-bottom:10px">🛒</div>
+      <p>Aucune piece selectionnee</p>
+    </div>
+  </div>
+  <div class="panier-footer">
+    <div class="panier-total">
+      <span class="panier-total-label">Total pieces</span>
+      <span class="panier-total-amount"><span id="panier-total">0.00</span> €</span>
+    </div>
+    <button class="btn-generer" onclick="genererDevis()">📄 Generer le devis</button>
+  </div>
+</div>
+
+<script>
+  var panier = [];
+  var zoneActive = null;
+
+  function chargerZones() {
+    fetch('http://localhost:8080/api/zones')
+      .then(function(r) { return r.json(); })
+      .then(function(zones) {
+        document.getElementById('zone-count').innerHTML = zones.length;
+        var html = '';
+        zones.forEach(function(z) {
+          html += '<div class="zone-item" onclick="afficherZone(\'' + z + '\', this)">' + z + '</div>';
+        });
+        document.getElementById('liste-zones').innerHTML = html;
+      })
+      .catch(function() {
+        document.getElementById('liste-zones').innerHTML = '<div style="padding:20px;color:#484f58;font-size:13px">API non disponible<br>Lance: python api.py</div>';
+      });
+  }
+
+  function afficherZone(zone, el) {
+    if (zoneActive) zoneActive.classList.remove('active');
+    el.classList.add('active');
+    zoneActive = el;
+
+    fetch('http://localhost:8080/api/pieces/' + encodeURIComponent(zone))
+      .then(function(r) { return r.json(); })
+      .then(function(pieces) {
+        var html = '<div class="zone-title">' + zone + '</div>';
+        html += '<div class="zone-subtitle">Yamaha YZF-R1 2020 — ' + pieces.length + ' references</div>';
+        html += '<table>';
+        html += '<tr><th></th><th>Reference</th><th>Designation</th><th>Prix TTC</th></tr>';
+        pieces.forEach(function(p) {
+          var id = 'p_' + p.ref.replace(/[^a-zA-Z0-9]/g, '_');
+          html += '<tr>';
+          html += '<td class="check-cell"><input type="checkbox" id="' + id + '" onchange="togglePiece(this, \'' + p.ref + '\', \'' + p.nom.replace(/'/g, '') + '\', ' + p.prix + ')"></td>';
+          html += '<td class="ref-cell">' + p.ref + '</td>';
+          html += '<td>' + p.nom + '</td>';
+          html += '<td class="prix-cell">' + p.prix.toFixed(2) + ' €</td>';
+          html += '</tr>';
+        });
+        html += '</table>';
+        html += '<div class="total-bar">';
+        html += '<div class="total-info"><span class="total-label">Total selection</span><span class="total-amount"><span id="total">0.00</span> €</span></div>';
+        html += '<div><button class="btn-devis" onclick="ouvrirPanier()">Voir le panier</button><button class="btn-reset" onclick="reinitialiser()">Reinitialiser</button></div>';
+        html += '</div>';
+        document.getElementById('main').innerHTML = html;
+        mettreAJourTotal();
+      });
+  }
+
+  function togglePiece(checkbox, ref, nom, prix) {
+    if (checkbox.checked) {
+      panier.push({ref: ref, nom: nom, prix: prix});
+    } else {
+      panier = panier.filter(function(p) { return p.ref !== ref; });
+    }
+    mettreAJourTotal();
+    mettreAJourPanier();
+  }
+
+  function mettreAJourTotal() {
+    var total = 0;
+    panier.forEach(function(p) { total += p.prix; });
+    var el = document.getElementById('total');
+    if (el) el.innerHTML = total.toFixed(2);
+    document.getElementById('panier-count').innerHTML = panier.length;
+    document.getElementById('pieces-count').innerHTML = panier.length + ' piece' + (panier.length > 1 ? 's' : '') + ' selectionnee' + (panier.length > 1 ? 's' : '');
+    document.getElementById('panier-total').innerHTML = total.toFixed(2);
+  }
+
+  function mettreAJourPanier() {
+    if (panier.length === 0) {
+      document.getElementById('panier-items').innerHTML = '<div style="text-align:center;color:#484f58;padding:40px 20px"><div style="font-size:40px;margin-bottom:10px">🛒</div><p>Aucune piece selectionnee</p></div>';
+      return;
+    }
+    var html = '';
+    panier.forEach(function(p) {
+      html += '<div class="panier-item">';
+      html += '<div class="panier-item-nom">' + p.nom + '</div>';
+      html += '<div class="panier-item-ref">' + p.ref + '</div>';
+      html += '<div class="panier-item-prix">' + p.prix.toFixed(2) + ' €</div>';
+      html += '</div>';
+    });
+    document.getElementById('panier-items').innerHTML = html;
+  }
+
+  function ouvrirPanier() {
+    document.getElementById('panier-panel').classList.add('open');
+    document.getElementById('overlay').classList.add('open');
+  }
+
+  function fermerPanier() {
+    document.getElementById('panier-panel').classList.remove('open');
+    document.getElementById('overlay').classList.remove('open');
+  }
+
+  function reinitialiser() {
+    panier = [];
+    mettreAJourTotal();
+    mettreAJourPanier();
+    document.querySelectorAll('input[type="checkbox"]').forEach(function(c) { c.checked = false; });
+    if (document.getElementById('total')) document.getElementById('total').innerHTML = '0.00';
+  }
+
+  function genererDevis() {
+    if (panier.length === 0) { alert('Aucune piece selectionnee !'); return; }
+    var date = new Date().toLocaleDateString('fr-FR');
+    var total = 0;
+    panier.forEach(function(p) { total += p.prix; });
+
+    var w = window.open('', '_blank');
+    w.document.write('<html><head><title>Devis MotoChiffrage Pro</title>');
+    w.document.write('<style>body{font-family:Arial;padding:40px;color:#333}h1{color:#e94560}table{width:100%;border-collapse:collapse;margin-top:20px}th{background:#f5f5f5;padding:10px;text-align:left}td{padding:10px;border-bottom:1px solid #eee}.total{font-size:24px;font-weight:bold;color:#e94560;margin-top:20px}</style>');
+    w.document.write('</head><body>');
+    w.document.write('<h1>MotoChiffrage Pro</h1>');
+    w.document.write('<p>Date : ' + date + '</p>');
+    w.document.write('<p>Vehicule : Yamaha YZF-R1 2020</p>');
+    w.document.write('<table><tr><th>Reference</th><th>Designation</th><th>Prix TTC</th></tr>');
+    panier.forEach(function(p) {
+      w.document.write('<tr><td>' + p.ref + '</td><td>' + p.nom + '</td><td>' + p.prix.toFixed(2) + ' EUR</td></tr>');
+    });
+    w.document.write('<tr><td colspan="2"><strong>TOTAL PIECES</strong></td><td><strong>' + total.toFixed(2) + ' EUR</strong></td></tr>');
+    w.document.write('</table>');
+    w.document.write('<p class="total">Total : ' + total.toFixed(2) + ' EUR</p>');
+    w.document.write('</body></html>');
+    w.document.close();
+    w.print();
+  }
+
+  chargerZones();
+</script>
+
+</body>
+</html>

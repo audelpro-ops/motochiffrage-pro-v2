@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yamaha Moto - MotoChiffrage Pro</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #080c14; color: #e6edf3; }
+
+    .header {
+      background: #0d1117;
+      padding: 20px 40px;
+      border-bottom: 1px solid #1a2332;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #484f58;
+    }
+
+    .breadcrumb a { color: #e94560; text-decoration: none; }
+    .breadcrumb span { color: #484f58; }
+
+    .hero {
+      background: linear-gradient(180deg, #0d1117, #080c14);
+      padding: 40px 20px;
+      text-align: center;
+      border-bottom: 1px solid #1a2332;
+    }
+
+    .hero h1 { font-size: 32px; font-weight: 800; color: #e6edf3; margin-bottom: 8px; }
+    .hero p { color: #484f58; font-size: 14px; }
+
+    .filters {
+      background: #0d1117;
+      padding: 15px 40px;
+      border-bottom: 1px solid #1a2332;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filter-input {
+      padding: 8px 15px;
+      background: #080c14;
+      border: 1px solid #1a2332;
+      border-radius: 20px;
+      color: #e6edf3;
+      font-size: 13px;
+      outline: none;
+      width: 200px;
+    }
+
+    .filter-input:focus { border-color: #e94560; }
+    .filter-input::placeholder { color: #484f58; }
+
+    .btn-filter {
+      padding: 8px 16px;
+      background: #080c14;
+      border: 1px solid #1a2332;
+      border-radius: 20px;
+      color: #484f58;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-filter:hover, .btn-filter.active {
+      background: #e94560;
+      color: white;
+      border-color: #e94560;
+    }
+
+    .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .section-header h2 {
+      font-size: 12px;
+      color: #484f58;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      white-space: nowrap;
+    }
+
+    .section-line { flex: 1; height: 1px; background: #1a2332; }
+
+    .models-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+      margin-bottom: 50px;
+    }
+
+    .model-card {
+      background: #0d1117;
+      border: 1px solid #1a2332;
+      border-radius: 12px;
+      padding: 20px 15px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .model-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #e94560;
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+
+    .model-card:hover::after { transform: scaleX(1); }
+
+    .model-card:hover {
+      border-color: #e94560;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(233,69,96,0.1);
+    }
+
+    .model-card.available { border-color: rgba(63,185,80,0.3); }
+    .model-card.available::after { background: #3fb950; }
+    .model-card.available:hover { border-color: #3fb950; box-shadow: 0 8px 20px rgba(63,185,80,0.1); }
+
+    .model-type {
+      font-size: 10px;
+      color: #484f58;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .model-name {
+      font-size: 20px;
+      font-weight: 800;
+      color: #e6edf3;
+      margin-bottom: 4px;
+    }
+
+    .model-cc {
+      font-size: 12px;
+      color: #58a6ff;
+      margin-bottom: 15px;
+    }
+
+    .model-badge {
+      font-size: 9px;
+      padding: 2px 8px;
+      border-radius: 8px;
+      display: inline-block;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-ok {
+      background: rgba(63,185,80,0.1);
+      color: #3fb950;
+      border: 1px solid rgba(63,185,80,0.3);
+    }
+
+    .badge-soon {
+      background: rgba(72,79,88,0.2);
+      color: #484f58;
+      border: 1px solid #1a2332;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 30px;
+      color: #484f58;
+      font-size: 12px;
+      border-top: 1px solid #1a2332;
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="breadcrumb">
+    <a href="index.html">Accueil</a>
+    <span>›</span>
+    <a href="yamaha.html">Yamaha</a>
+    <span>›</span>
+    <span style="color:#e6edf3">Moto</span>
+  </div>
+</div>
+
+<div class="hero">
+  <h1>🏍️ Yamaha Moto</h1>
+  <p>Selectionnez votre modele pour acceder au catalogue de pieces</p>
+</div>
+
+<div class="filters">
+  <input class="filter-input" type="text" placeholder="Rechercher..." oninput="filtrer(this.value)">
+  <button class="btn-filter active" onclick="filtrerType('tous', this)">Tous</button>
+  <button class="btn-filter" onclick="filtrerType('sport', this)">Sport</button>
+  <button class="btn-filter" onclick="filtrerType('roadster', this)">Roadster</button>
+  <button class="btn-filter" onclick="filtrerType('trail', this)">Trail</button>
+  <button class="btn-filter" onclick="filtrerType('cross', this)">Cross</button>
+  <button class="btn-filter" onclick="filtrerType('vintage', this)">Vintage</button>
+</div>
+
+<div class="container">
+
+  <div class="section-header">
+    <h2>✅ Disponible</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="models-grid">
+    <a href="yamaha-r1-2020.html" class="model-card available" data-type="sport">
+      <div class="model-type">Supersport</div>
+      <div class="model-name">YZF-R1</div>
+      <div class="model-cc">1000 cc · 197 ch</div>
+      <span class="model-badge badge-ok">✓ 2020 · 1458 pieces</span>
+    </a>
+  </div>
+
+  <div class="section-header">
+    <h2>🕐 Prochainement</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="models-grid">
+
+    <div class="model-card" data-type="sport">
+      <div class="model-type">Supersport</div>
+      <div class="model-name">YZF-R6</div>
+      <div class="model-cc">600 cc · 118 ch</div>
+      <span class="model-badge badge-soon">Bientot</span>
+    </div>
+
+    <div class="model-card" data-type="sport">
+      <div class="model-type">Sport</div>
+      <div class="model-name">YZF-R3</div>
+      <div class="model-cc">321 cc · 42 ch</div>
+      <span class="model-badge badge-soon">Bientot</span>
+    </div>
+
+    <div class="model-card" data-type="sport">
+      <div class="model-type">Sport</div>
+      <div class="model-name">YZF-R125</div>
+      <div class="model-cc">125 cc · 15 ch</div>
+      <span class="model-badge badge-soon">Bientot</span>
+    </div>
+
+    <div class="model-card" data-type="roadster">
+      <div class="model-type">Roadster</div>
+      <div class="model-name">MT-09</div>
+      <div class="model-cc">889 cc · 119 ch</div>
+      <span class="model-badge badge-soon">Bientot</span>
+    </div>
+
+    <div class="model-card" data-type="roadster">
+      <div class="model-type">Roadster</div>
+      <div class="model-name">MT-07</div>
+      <div class="model-cc">689 cc · 73 ch</div>
+      <span class="model-badge badge-soon">Bientot</span>
+    </div>
+
+    <div class="model-card" data-type="roadster">
+      <div class="model-type">Roadster</div>
+      <div class="model-name">MT-03</div>
+      <div class="model-cc">321 cc · 42 ch</div>
+      <span class="model-badge badge-soon">Bientot</span>
+    </div>
+
+    <div class="model-card" data-type="trail">
+      <div class="model-type">Trail</div>
+      <div class="model-name">Tenere 700</div>
+      <div class="model-cc">689 cc · 73 ch</div>
+      <span class="model-badge badge-soon">Bientot</span>
+    </div>
+
+    <div class="model-card" data-type="trail">
+      <div class="model-type">Trail</div>
+      <div class="model-name">Tracer 900</div>
+      <div class="model-cc">889 cc · 119 ch</div>
+      <span class="model-badge badge-soon">Bientot</span>
+    </div>
+
+    <div class="model-card" data-type="vintage">
+      <div class="model-type">Vintage</div>
+      <div class="model-name">XSR900</div>
+      <div class="model-cc">889 cc · 119 ch</div>
+      <span class="model-badge badge-soon">Bientot</span>
+    </div>
+
+    <div class="model-card" data-type="vintage">
+      <div class="model-type">Vintage</div>
+      <div class="model-name">XSR700</div>
+      <div class="model-cc">689 cc · 73 ch</div>
+      <span class="model-badge badge-soon">Bientot</span>
+    </div>
+
+    <div class="model-card" data-type="cross">
+      <div class="model-type">Cross</div>
+      <div class="model-name">YZ450F</div>
+      <div class="model-cc">450 cc · Enduro</div>
+      <span class="model-badge badge-soon">Bientot</span>
+    </div>
+
+    <div class="model-card" data-type="cross">
+      <div class="model-type">Cross</div>
+      <div class="model-name">YZ250F</div>
+      <div class="model-cc">250 cc · Enduro</div>
+      <span class="model-badge badge-soon">Bientot</span>
+    </div>
+
+    <div class="model-card" data-type="roadster">
+      <div class="model-type">3 Roues</div>
+      <div class="model-name">NIKEN</div>
+      <div class="model-cc">889 cc · 115 ch</div>
+      <span class="model-badge badge-soon">Bientot</span>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="footer">
+  MotoChiffrage Pro — Yamaha Moto
+</div>
+
+<script>
+  function filtrer(val) {
+    document.querySelectorAll('.model-card').forEach(function(c) {
+      c.style.display = c.innerText.toLowerCase().includes(val.toLowerCase()) ? 'block' : 'none';
+    });
+  }
+
+  function filtrerType(type, btn) {
+    document.querySelectorAll('.btn-filter').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    document.getElementById ? null : null;
+    document.querySelectorAll('.model-card').forEach(function(c) {
+      c.style.display = (type === 'tous' || c.dataset.type === type) ? 'block' : 'none';
+    });
+  }
+</script>
+
+</body>
+</html>

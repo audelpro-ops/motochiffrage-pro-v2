@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MotoChiffrage Pro</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #080c14;
+      color: #e6edf3;
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    .header {
+      background: linear-gradient(180deg, #0d1117 0%, #080c14 100%);
+      padding: 40px 20px 60px;
+      text-align: center;
+      position: relative;
+      border-bottom: 1px solid #1a2332;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 300px;
+      background: radial-gradient(ellipse, rgba(233,69,96,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .logo {
+      font-size: 13px;
+      letter-spacing: 4px;
+      color: #e94560;
+      text-transform: uppercase;
+      margin-bottom: 15px;
+    }
+
+    .header h1 {
+      font-size: 48px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff 0%, #8b949e 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 15px;
+      line-height: 1.1;
+    }
+
+    .header p {
+      color: #8b949e;
+      font-size: 16px;
+      max-width: 500px;
+      margin: 0 auto 30px;
+      line-height: 1.6;
+    }
+
+    .search-box {
+      max-width: 500px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 14px 50px 14px 20px;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 50px;
+      color: #e6edf3;
+      font-size: 15px;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    .search-box input:focus {
+      border-color: #e94560;
+      box-shadow: 0 0 0 3px rgba(233,69,96,0.1);
+    }
+
+    .search-box input::placeholder { color: #484f58; }
+
+    .search-icon {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #484f58;
+      font-size: 18px;
+    }
+
+    /* STATS */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      padding: 25px;
+      background: #0d1117;
+      border-bottom: 1px solid #1a2332;
+    }
+
+    .stat-number {
+      font-size: 28px;
+      font-weight: bold;
+      color: #e94560;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: #484f58;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 2px;
+    }
+
+    /* SECTIONS */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 50px 20px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .section-header h2 {
+      font-size: 13px;
+      color: #484f58;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      white-space: nowrap;
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: #1a2332;
+    }
+
+    /* BRAND GRID */
+    .brands-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 12px;
+      margin-bottom: 50px;
+    }
+
+    .brand-card {
+      background: #0d1117;
+      border: 1px solid #1a2332;
+      border-radius: 12px;
+      padding: 20px 15px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(233,69,96,0.05), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .brand-card:hover::before { opacity: 1; }
+
+    .brand-card:hover {
+      border-color: #e94560;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(233,69,96,0.12);
+    }
+
+    .brand-card.active-brand {
+      border-color: #e94560;
+      background: #150a0e;
+    }
+
+    .brand-logo {
+      width: 70px;
+      height: 70px;
+      object-fit: contain;
+      filter: brightness(0.85) saturate(0.8);
+      transition: filter 0.3s;
+    }
+
+    .brand-card:hover .brand-logo { filter: brightness(1.1) saturate(1.2); }
+
+    .brand-name {
+      font-size: 12px;
+      font-weight: bold;
+      color: #8b949e;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .brand-status {
+      font-size: 9px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    .status-active {
+      background: rgba(63,185,80,0.1);
+      color: #3fb950;
+      border: 1px solid rgba(63,185,80,0.3);
+    }
+
+    .status-soon {
+      background: rgba(72,79,88,0.3);
+      color: #484f58;
+      border: 1px solid #1a2332;
+    }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      padding: 30px;
+      color: #484f58;
+      font-size: 12px;
+      border-top: 1px solid #1a2332;
+    }
+
+    .footer span { color: #e94560; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">Chiffrage Professionnel</div>
+  <h1>MotoChiffrage<br>Pro</h1>
+  <p>Catalogue officiel de pieces detachees moto avec prix constructeur</p>
+  <div class="search-box">
+    <input type="text" placeholder="Rechercher une marque..." oninput="filtrer(this.value)" id="search">
+    <span class="search-icon">🔍</span>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat">
+    <div class="stat-number">20+</div>
+    <div class="stat-label">Marques</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">1458</div>
+    <div class="stat-label">Pieces R1</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">100%</div>
+    <div class="stat-label">Officiel</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="section-header">
+    <h2>Marques disponibles</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="brands-grid" id="grid">
+
+    <a href="yamaha.html" class="brand-card active-brand" data-name="yamaha">
+      <img class="brand-logo" src="https://fr.microfiches.net/thumbs/themes/micro/sites/200_200/Yamaha.webp" alt="Yamaha">
+      <div class="brand-name">Yamaha</div>
+      <span class="brand-status status-active">Disponible</span>
+    </a>
+
+    <div class="brand-card" data-name="honda">
+      <img class="brand-logo" src="https://fr.microfiches.net/thumbs/themes/micro/sites/200_200/Honda.webp" alt="Honda">
+      <div class="brand-name">Honda</div>
+      <span class="brand-status status-soon">Bientot</span>
+    </div>
+
+    <div class="brand-card" data-name="kawasaki">
+      <img class="brand-logo" src="https://fr.microfiches.net/thumbs/themes/micro/sites/200_200/kawasaki.webp" alt="Kawasaki">
+      <div class="brand-name">Kawasaki</div>
+      <span class="brand-status status-soon">Bientot</span>
+    </div>
+
+    <div class="brand-card" data-name="suzuki">
+      <img class="brand-logo" src="https://fr.microfiches.net/thumbs/themes/micro/sites/200_200/Suzuki.webp" alt="Suzuki">
+      <div class="brand-name">Suzuki</div>
+      <span class="brand-status status-soon">Bientot</span>
+    </div>
+
+    <div class="brand-card" data-name="ducati">
+      <img class="brand-logo" src="https://fr.microfiches.net/thumbs/themes/micro/sites/200_200/Ducati.webp" alt="Ducati">
+      <div class="brand-name">Ducati</div>
+      <span class="brand-status status-soon">Bientot</span>
+    </div>
+
+    <div class="brand-card" data-name="bmw">
+      <img class="brand-logo" src="https://fr.microfiches.net/thumbs/themes/micro/sites/200_200/BMW_moto.webp" alt="BMW">
+      <div class="brand-name">BMW Moto</div>
+      <span class="brand-status status-soon">Bientot</span>
+    </div>
+
+    <div class="brand-card" data-name="ktm">
+      <img class="brand-logo" src="https://fr.microfiches.net/thumbs/themes/micro/sites/200_200/KTM.webp" alt="KTM">
+      <div class="brand-name">KTM</div>
+      <span class="brand-status status-soon">Bientot</span>
+    </div>
+
+    <div class="brand-card" data-name="triumph">
+      <img class="brand-logo" src="https://fr.microfiches.net/thumbs/themes/micro/sites/200_200/Triumph.webp" alt="Triumph">
+      <div class="brand-name">Triumph</div>
+      <span class="brand-status status-soon">Bientot</span>
+    </div>
+
+    <div class="brand-card" data-name="aprilia">
+      <img class="brand-logo" src="https://fr.microfiches.net/thumbs/themes/micro/sites/200_200/Aprilia.webp" alt="Aprilia">
+      <div class="brand-name">Aprilia</div>
+      <span class="brand-status status-soon">Bientot</span>
+    </div>
+
+    <div class="brand-card" data-name="mv agusta">
+      <img class="brand-logo" src="https://fr.microfiches.net/thumbs/themes/micro/sites/200_200/mv.webp" alt="MV Agusta">
+      <div class="brand-name">MV Agusta</div>
+      <span class="brand-status status-soon">Bientot</span>
+    </div>
+
+    <div class="brand-card" data-name="husqvarna">
+      <img class="brand-logo" src="https://fr.microfiches.net/thumbs/themes/micro/sites/200_200/Husqvarna_moto.webp" alt="Husqvarna">
+      <div class="brand-name">Husqvarna</div>
+      <span class="brand-status status-soon">Bientot</span>
+    </div>
+
+    <div class="brand-card" data-name="royal enfield">
+      <img class="brand-logo" src="https://fr.microfiches.net/thumbs/themes/micro/sites/200_200/royalenfield.webp" alt="Royal Enfield">
+      <div class="brand-name">Royal Enfield</div>
+      <span class="brand-status status-soon">Bientot</span>
+    </div>
+
+    <div class="brand-card" data-name="piaggio">
+      <img class="brand-logo" src="https://fr.microfiches.net/thumbs/themes/micro/sites/200_200/Piaggio.webp" alt="Piaggio">
+      <div class="brand-name">Piaggio</div>
+      <span class="brand-status status-soon">Bientot</span>
+    </div>
+
+    <div class="brand-card" data-name="moto guzzi">
+      <img class="brand-logo" src="https://fr.microfiches.net/thumbs/themes/micro/sites/200_200/guzzi.webp" alt="Moto Guzzi">
+      <div class="brand-name">Moto Guzzi</div>
+      <span class="brand-status status-soon">Bientot</span>
+    </div>
+
+    <div class="brand-card" data-name="kymco">
+      <img class="brand-logo" src="https://fr.microfiches.net/thumbs/themes/micro/sites/200_200/Kymco.webp" alt="Kymco">
+      <div class="brand-name">Kymco</div>
+      <span class="brand-status status-soon">Bientot</span>
+    </div>
+
+    <div class="brand-card" data-name="benelli">
+      <img class="brand-logo" src="https://fr.microfiches.net/thumbs/themes/micro/sites/200_200/benelli.webp" alt="Benelli">
+      <div class="brand-name">Benelli</div>
+      <span class="brand-status status-soon">Bientot</span>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="footer">
+  MotoChiffrage Pro — Prix officiels constructeur — Powered by <span>pieces-yam.com</span>
+</div>
+
+<script>
+  function filtrer(val) {
+    var cards = document.querySelectorAll('.brand-card');
+    cards.forEach(function(card) {
+      var name = card.dataset.name || '';
+      card.style.display = name.includes(val.toLowerCase()) ? 'flex' : 'none';
+    });
+  }
+</script>
+
+</body>
+</html>

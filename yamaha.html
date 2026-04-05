@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yamaha - MotoChiffrage Pro</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #080c14; color: #e6edf3; }
+
+    .header {
+      background: #0d1117;
+      padding: 20px 40px;
+      border-bottom: 1px solid #1a2332;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .header img { width: 100px; filter: brightness(1.1); }
+    .header h1 { font-size: 24px; color: #e6edf3; }
+    .header a { color: #e94560; text-decoration: none; font-size: 13px; display: block; margin-top: 4px; }
+
+    .container { max-width: 1100px; margin: 50px auto; padding: 0 20px; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .section-header h2 {
+      font-size: 13px;
+      color: #484f58;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      white-space: nowrap;
+    }
+
+    .section-line { flex: 1; height: 1px; background: #1a2332; }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 60px;
+    }
+
+    .cat-card {
+      background: #0d1117;
+      border: 1px solid #1a2332;
+      border-radius: 14px;
+      padding: 30px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .cat-card:hover {
+      border-color: #e94560;
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(233,69,96,0.12);
+    }
+
+    .cat-icon { font-size: 40px; }
+    .cat-name { font-size: 16px; font-weight: bold; color: #e6edf3; }
+    .cat-count { font-size: 12px; color: #484f58; }
+
+    .cat-badge {
+      font-size: 10px;
+      padding: 3px 10px;
+      border-radius: 10px;
+      background: rgba(63,185,80,0.1);
+      color: #3fb950;
+      border: 1px solid rgba(63,185,80,0.3);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 30px;
+      color: #484f58;
+      font-size: 12px;
+      border-top: 1px solid #1a2332;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <img src="https://fr.microfiches.net/thumbs/themes/micro/sites/200_200/Yamaha.webp" alt="Yamaha">
+  <div>
+    <h1>Yamaha</h1>
+    <a href="index.html">← Retour accueil</a>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="section-header">
+    <h2>Choisissez une categorie</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="categories-grid">
+
+    <a href="yamaha-moto.html" class="cat-card">
+      <div class="cat-icon">🏍️</div>
+      <div class="cat-name">Moto</div>
+      <div class="cat-count">Sport, Roadster, Trail...</div>
+      <span class="cat-badge">Disponible</span>
+    </a>
+
+    <div class="cat-card">
+      <div class="cat-icon">🛵</div>
+      <div class="cat-name">Scooter</div>
+      <div class="cat-count">50cc a 560cc</div>
+      <span style="font-size:10px;padding:3px 10px;border-radius:10px;background:rgba(72,79,88,0.3);color:#484f58;border:1px solid #1a2332;">Bientot</span>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-icon">🏎️</div>
+      <div class="cat-name">Quad / ATV</div>
+      <div class="cat-count">50cc a 700cc</div>
+      <span style="font-size:10px;padding:3px 10px;border-radius:10px;background:rgba(72,79,88,0.3);color:#484f58;border:1px solid #1a2332;">Bientot</span>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-icon">🌊</div>
+      <div class="cat-name">Jet Ski</div>
+      <div class="cat-count">Waverunner</div>
+      <span style="font-size:10px;padding:3px 10px;border-radius:10px;background:rgba(72,79,88,0.3);color:#484f58;border:1px solid #1a2332;">Bientot</span>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-icon">❄️</div>
+      <div class="cat-name">Motoneige</div>
+      <div class="cat-count">80cc a 1000cc</div>
+      <span style="font-size:10px;padding:3px 10px;border-radius:10px;background:rgba(72,79,88,0.3);color:#484f58;border:1px solid #1a2332;">Bientot</span>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="footer">
+  MotoChiffrage Pro — Yamaha pieces officielles
+</div>
+
+</body>
+</html>
