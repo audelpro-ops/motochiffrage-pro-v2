@@ -29,8 +29,9 @@ class API(BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(json.dumps(pieces).encode())
 
-        elif self.path == '/api/catalogue':
-            c.execute("SELECT cylindree, annee, modele, url FROM catalogue WHERE marque='yamaha' ORDER BY cylindree+0, annee, modele")
+        elif self.path.startswith('/api/catalogue'):
+            marque = self.path.split('marque=')[1] if 'marque=' in self.path else 'yamaha'
+            c.execute("SELECT cylindree, annee, modele, url FROM catalogue WHERE marque=? ORDER BY cylindree+0, annee, modele", (marque,))
             modeles = [{"cylindree": r[0], "annee": r[1], "modele": r[2], "url": r[3]} for r in c.fetchall()]
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
