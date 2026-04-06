@@ -8,337 +8,86 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: Arial, sans-serif; background: #080c14; color: #e6edf3; height: 100vh; display: flex; flex-direction: column; }
 
-    /* HEADER */
-    .header {
-      background: #0d1117;
-      padding: 15px 25px;
-      border-bottom: 1px solid #1a2332;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-shrink: 0;
-    }
-
-    .breadcrumb {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-    }
-
+    .header { background: #0d1117; padding: 15px 25px; border-bottom: 1px solid #1a2332; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+    .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; }
     .breadcrumb a { color: #e94560; text-decoration: none; }
     .breadcrumb span { color: #484f58; }
-
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .panier-btn {
-      background: #e94560;
-      color: white;
-      border: none;
-      padding: 8px 18px;
-      border-radius: 20px;
-      font-size: 13px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: bold;
-      transition: background 0.2s;
-    }
-
+    .header-right { display: flex; align-items: center; gap: 15px; }
+    .panier-btn { background: #e94560; color: white; border: none; padding: 8px 18px; border-radius: 20px; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: bold; }
     .panier-btn:hover { background: #c73652; }
+    .panier-count { background: white; color: #e94560; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; }
 
-    .panier-count {
-      background: white;
-      color: #e94560;
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      font-weight: bold;
-    }
+    .moto-banner { background: linear-gradient(135deg,#080c14,#0d1117); border-bottom: 1px solid #1a2332; padding: 20px 25px; display: flex; align-items: center; gap: 30px; flex-shrink: 0; }
+    .moto-banner img { height: 100px; object-fit: contain; }
+    .moto-banner-info { flex: 1; }
+    .moto-banner-tag { font-size: 11px; color: #484f58; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; }
+    .moto-banner-nom { font-size: 28px; font-weight: 800; color: #e6edf3; }
+    .moto-banner-specs { font-size: 13px; color: #58a6ff; margin-top: 4px; }
+    .moto-banner-badge { text-align: right; font-size: 12px; color: #3fb950; }
 
-    /* LAYOUT */
-    .layout {
-      display: flex;
-      flex: 1;
-      overflow: hidden;
-    }
+    .layout { display: flex; flex: 1; overflow: hidden; }
 
-    /* SIDEBAR */
-    .sidebar {
-      width: 260px;
-      background: #0d1117;
-      border-right: 1px solid #1a2332;
-      overflow-y: auto;
-      flex-shrink: 0;
-    }
+    .sidebar { width: 260px; background: #0d1117; border-right: 1px solid #1a2332; overflow-y: auto; flex-shrink: 0; }
+    .sidebar-title { padding: 15px 20px; font-size: 11px; color: #484f58; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid #1a2332; }
 
-    .sidebar-title {
-      padding: 15px 20px;
-      font-size: 11px;
-      color: #484f58;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      border-bottom: 1px solid #1a2332;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+    .cat-group { border-bottom: 1px solid #080c14; }
+    .cat-header { padding: 12px 20px; font-size: 13px; color: #e6edf3; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: all 0.2s; }
+    .cat-header:hover { background: #150a0e; color: #e94560; }
+    .cat-header.open { color: #e94560; background: #150a0e; }
+    .arrow { font-size: 10px; transition: transform 0.2s; display: inline-block; }
+    .cat-header.open .arrow { transform: rotate(90deg); }
+    .cat-body { display: none; background: #080c14; }
+    .cat-body.open { display: block; }
 
-    .zone-count {
-      background: #e94560;
-      color: white;
-      border-radius: 10px;
-      padding: 1px 7px;
-      font-size: 10px;
-    }
+    .zone-item { padding: 10px 20px 10px 30px; font-size: 12px; color: #8b949e; cursor: pointer; transition: all 0.2s; border-left: 3px solid transparent; }
+    .zone-item:hover { color: #e6edf3; border-left-color: #e94560; background: #0d1117; }
+    .zone-item.active { color: #e94560; border-left-color: #e94560; font-weight: bold; background: #150a0e; }
 
-    .zone-item {
-      padding: 12px 20px;
-      font-size: 13px;
-      color: #8b949e;
-      cursor: pointer;
-      transition: all 0.2s;
-      border-left: 3px solid transparent;
-      border-bottom: 1px solid #080c14;
-    }
+    .main { flex: 1; overflow-y: auto; padding: 25px; }
 
-    .zone-item:hover {
-      background: #080c14;
-      color: #e6edf3;
-      border-left-color: #e94560;
-    }
+    .grandes-cats { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
+    .grande-cat { background: #0d1117; border: 1px solid #1a2332; border-radius: 14px; padding: 25px; text-align: center; cursor: pointer; transition: all 0.3s; }
+    .grande-cat:hover { border-color: #e94560; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(233,69,96,0.1); }
+    .gc-icon { font-size: 40px; margin-bottom: 12px; }
+    .gc-nom { font-size: 16px; font-weight: bold; color: #e6edf3; margin-bottom: 5px; }
+    .gc-desc { font-size: 11px; color: #484f58; }
 
-    .zone-item.active {
-      background: #150a0e;
-      color: #e94560;
-      border-left-color: #e94560;
-      font-weight: bold;
-    }
+    .zone-title { font-size: 22px; font-weight: bold; color: #e6edf3; margin-bottom: 5px; }
+    .zone-subtitle { font-size: 13px; color: #484f58; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #1a2332; }
 
-    /* MAIN */
-    .main {
-      flex: 1;
-      overflow-y: auto;
-      padding: 25px;
-    }
-
-    .empty-state {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      color: #484f58;
-      text-align: center;
-      gap: 15px;
-    }
-
-    .empty-icon { font-size: 60px; }
-    .empty-state h3 { font-size: 20px; color: #8b949e; }
-    .empty-state p { font-size: 14px; }
-
-    .zone-title {
-      font-size: 22px;
-      font-weight: bold;
-      color: #e6edf3;
-      margin-bottom: 5px;
-    }
-
-    .zone-subtitle {
-      font-size: 13px;
-      color: #484f58;
-      margin-bottom: 20px;
-      padding-bottom: 15px;
-      border-bottom: 1px solid #1a2332;
-    }
-
-    /* TABLE */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
-
-    th {
-      background: #0d1117;
-      padding: 10px 15px;
-      text-align: left;
-      color: #484f58;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      border-bottom: 1px solid #1a2332;
-    }
-
-    td {
-      padding: 12px 15px;
-      border-bottom: 1px solid #0d1117;
-      transition: background 0.2s;
-    }
-
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th { background: #0d1117; padding: 10px 15px; text-align: left; color: #484f58; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #1a2332; }
+    td { padding: 12px 15px; border-bottom: 1px solid #0d1117; transition: background 0.2s; }
     tr:hover td { background: #0d1117; }
+    .ref-cell { font-family: monospace; color: #58a6ff; font-size: 12px; }
+    .prix-cell { color: #3fb950; font-weight: bold; white-space: nowrap; }
+    .check-cell input { width: 16px; height: 16px; cursor: pointer; accent-color: #e94560; }
 
-    .ref-cell {
-      font-family: monospace;
-      color: #58a6ff;
-      font-size: 12px;
-    }
-
-    .prix-cell {
-      color: #3fb950;
-      font-weight: bold;
-      white-space: nowrap;
-    }
-
-    .check-cell input {
-      width: 16px;
-      height: 16px;
-      cursor: pointer;
-      accent-color: #e94560;
-    }
-
-    /* TOTAL BAR */
-    .total-bar {
-      position: sticky;
-      bottom: 0;
-      background: #0d1117;
-      border-top: 1px solid #1a2332;
-      padding: 15px 25px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: 20px -25px -25px;
-    }
-
+    .total-bar { position: sticky; bottom: 0; background: #0d1117; border-top: 1px solid #1a2332; padding: 15px 25px; display: flex; align-items: center; justify-content: space-between; margin: 20px -25px -25px; }
     .total-info { display: flex; align-items: center; gap: 20px; }
     .total-label { font-size: 12px; color: #484f58; }
     .total-amount { font-size: 28px; font-weight: bold; color: #e94560; }
-
-    .btn-devis {
-      background: #e94560;
-      color: white;
-      border: none;
-      padding: 12px 25px;
-      border-radius: 8px;
-      font-size: 14px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background 0.2s;
-    }
-
+    .btn-devis { background: #e94560; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-size: 14px; cursor: pointer; font-weight: bold; }
     .btn-devis:hover { background: #c73652; }
-
-    .btn-reset {
-      background: transparent;
-      color: #484f58;
-      border: 1px solid #1a2332;
-      padding: 12px 20px;
-      border-radius: 8px;
-      font-size: 13px;
-      cursor: pointer;
-      margin-left: 10px;
-      transition: all 0.2s;
-    }
-
+    .btn-reset { background: transparent; color: #484f58; border: 1px solid #1a2332; padding: 12px 20px; border-radius: 8px; font-size: 13px; cursor: pointer; margin-left: 10px; }
     .btn-reset:hover { border-color: #e94560; color: #e94560; }
 
-    /* PANIER PANEL */
-    .panier-panel {
-      position: fixed;
-      top: 0;
-      right: -400px;
-      width: 400px;
-      height: 100vh;
-      background: #0d1117;
-      border-left: 1px solid #1a2332;
-      z-index: 1000;
-      transition: right 0.3s;
-      display: flex;
-      flex-direction: column;
-    }
-
+    .panier-panel { position: fixed; top: 0; right: -400px; width: 400px; height: 100vh; background: #0d1117; border-left: 1px solid #1a2332; z-index: 1000; transition: right 0.3s; display: flex; flex-direction: column; }
     .panier-panel.open { right: 0; }
-
-    .panier-header {
-      padding: 20px;
-      border-bottom: 1px solid #1a2332;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .panier-header h2 { font-size: 18px; color: #e6edf3; }
-
-    .panier-close {
-      background: none;
-      border: none;
-      color: #484f58;
-      font-size: 24px;
-      cursor: pointer;
-    }
-
-    .panier-items {
-      flex: 1;
-      overflow-y: auto;
-      padding: 15px;
-    }
-
-    .panier-item {
-      background: #080c14;
-      border: 1px solid #1a2332;
-      border-radius: 8px;
-      padding: 12px;
-      margin-bottom: 10px;
-    }
-
+    .panier-header { padding: 20px; border-bottom: 1px solid #1a2332; display: flex; justify-content: space-between; align-items: center; }
+    .panier-header h2 { font-size: 18px; }
+    .panier-close { background: none; border: none; color: #484f58; font-size: 24px; cursor: pointer; }
+    .panier-items { flex: 1; overflow-y: auto; padding: 15px; }
+    .panier-item { background: #080c14; border: 1px solid #1a2332; border-radius: 8px; padding: 12px; margin-bottom: 10px; }
     .panier-item-nom { font-size: 13px; color: #e6edf3; margin-bottom: 4px; }
     .panier-item-ref { font-size: 11px; color: #58a6ff; font-family: monospace; }
     .panier-item-prix { font-size: 14px; color: #3fb950; font-weight: bold; margin-top: 6px; }
-
-    .panier-footer {
-      padding: 20px;
-      border-top: 1px solid #1a2332;
-    }
-
-    .panier-total {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-    }
-
+    .panier-footer { padding: 20px; border-top: 1px solid #1a2332; }
+    .panier-total { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
     .panier-total-label { color: #484f58; font-size: 13px; }
     .panier-total-amount { font-size: 28px; font-weight: bold; color: #e94560; }
-
-    .btn-generer {
-      width: 100%;
-      background: #e94560;
-      color: white;
-      border: none;
-      padding: 14px;
-      border-radius: 8px;
-      font-size: 15px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.5);
-      z-index: 999;
-    }
-
+    .btn-generer { width: 100%; background: #e94560; color: white; border: none; padding: 14px; border-radius: 8px; font-size: 15px; cursor: pointer; font-weight: bold; }
+    .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 999; }
     .overlay.open { display: block; }
   </style>
 </head>
@@ -346,41 +95,168 @@
 
 <div class="header">
   <div class="breadcrumb">
-    <a href="index.html">Accueil</a>
-    <span>›</span>
-    <a href="yamaha.html">Yamaha</a>
-    <span>›</span>
-    <a href="yamaha-moto.html">Moto</a>
-    <span>›</span>
+    <a href="index.html">Accueil</a><span>›</span>
+    <a href="yamaha.html">Yamaha</a><span>›</span>
+    <a href="yamaha-moto.html">Moto</a><span>›</span>
     <span style="color:#e6edf3">YZF-R1 2020</span>
   </div>
   <div class="header-right">
     <span style="font-size:12px;color:#484f58" id="pieces-count">0 piece selectionnee</span>
     <button class="panier-btn" onclick="ouvrirPanier()">
-      🛒 Panier
-      <span class="panier-count" id="panier-count">0</span>
+      🛒 Panier <span class="panier-count" id="panier-count">0</span>
     </button>
   </div>
 </div>
 
-<div class="layout">
+<div class="moto-banner">
+  <img src="https://www.pieces-yam.com/thumbs/y/pictures/300_300/2020-Yamaha-YZF1000-R1-B3L1-EU-Icon_Blue.webp">
+  <div class="moto-banner-info">
+    <div class="moto-banner-tag">Yamaha · Supersport · 2020</div>
+    <div class="moto-banner-nom">YZF-R1</div>
+    <div class="moto-banner-specs">998 cc · 197 ch · 51 zones · 1458 references</div>
+  </div>
+  <div class="moto-banner-badge">✓ Prix officiels Yamaha</div>
+</div>
 
+<div class="layout">
   <div class="sidebar">
-    <div class="sidebar-title">
-      Zones
-      <span class="zone-count" id="zone-count">0</span>
+    <div class="sidebar-title">Categories</div>
+
+    <div class="cat-group">
+      <div class="cat-header" onclick="toggleCat('motorisation', this)">
+        <span>🔧 Motorisation</span><span class="arrow">▶</span>
+      </div>
+      <div class="cat-body" id="cat-motorisation">
+        <div class="zone-item" onclick="afficherZone('Culasse', this)">Culasse</div>
+        <div class="zone-item" onclick="afficherZone('Cylindre', this)">Cylindre</div>
+        <div class="zone-item" onclick="afficherZone('Vilebrequin-Piston', this)">Vilebrequin-Piston</div>
+        <div class="zone-item" onclick="afficherZone('Soupape', this)">Soupape</div>
+        <div class="zone-item" onclick="afficherZone('Arbre a cames', this)">Arbre a cames</div>
+        <div class="zone-item" onclick="afficherZone('Carter moteur', this)">Carter moteur</div>
+        <div class="zone-item" onclick="afficherZone('Carter moteur 1', this)">Carter moteur 1</div>
+        <div class="zone-item" onclick="afficherZone('Demarreur', this)">Demarreur</div>
+        <div class="zone-item" onclick="afficherZone('Embrayage demarreur', this)">Embrayage</div>
+        <div class="zone-item" onclick="afficherZone('Transmission', this)">Transmission</div>
+        <div class="zone-item" onclick="afficherZone('Barillet selecteur', this)">Barillet selecteur</div>
+        <div class="zone-item" onclick="afficherZone('Axe selecteur', this)">Axe selecteur</div>
+      </div>
     </div>
-    <div id="liste-zones"></div>
+
+    <div class="cat-group">
+      <div class="cat-header" onclick="toggleCat('carrosserie', this)">
+        <span>🛡️ Carrosserie</span><span class="arrow">▶</span>
+      </div>
+      <div class="cat-body" id="cat-carrosserie">
+        <div class="zone-item" onclick="afficherZone('Carenages 1', this)">Carenages 1</div>
+        <div class="zone-item" onclick="afficherZone('Carenages 2', this)">Carenages 2</div>
+        <div class="zone-item" onclick="afficherZone('Carenages 3', this)">Carenages 3</div>
+        <div class="zone-item" onclick="afficherZone('Garde Boue', this)">Garde Boue</div>
+        <div class="zone-item" onclick="afficherZone('Couvercle lateral', this)">Couvercle lateral</div>
+        <div class="zone-item" onclick="afficherZone('Reservoir Selle', this)">Reservoir</div>
+        <div class="zone-item" onclick="afficherZone('Selle', this)">Selle</div>
+      </div>
+    </div>
+
+    <div class="cat-group">
+      <div class="cat-header" onclick="toggleCat('electrique', this)">
+        <span>⚡ Electrique</span><span class="arrow">▶</span>
+      </div>
+      <div class="cat-body" id="cat-electrique">
+        <div class="zone-item" onclick="afficherZone('Allumage', this)">Allumage</div>
+        <div class="zone-item" onclick="afficherZone('Phare', this)">Phare</div>
+        <div class="zone-item" onclick="afficherZone('Feu arriere', this)">Feu arriere</div>
+        <div class="zone-item" onclick="afficherZone('Clignotant', this)">Clignotant</div>
+        <div class="zone-item" onclick="afficherZone('Compteur', this)">Compteur</div>
+        <div class="zone-item" onclick="afficherZone('Commodo levier', this)">Commodo levier</div>
+        <div class="zone-item" onclick="afficherZone('Partie electrique 1', this)">Electrique 1</div>
+        <div class="zone-item" onclick="afficherZone('Partie electrique 2', this)">Electrique 2</div>
+        <div class="zone-item" onclick="afficherZone('Partie electrique 3', this)">Electrique 3</div>
+      </div>
+    </div>
+
+    <div class="cat-group">
+      <div class="cat-header" onclick="toggleCat('freinage', this)">
+        <span>🛞 Freinage et Roues</span><span class="arrow">▶</span>
+      </div>
+      <div class="cat-body" id="cat-freinage">
+        <div class="zone-item" onclick="afficherZone('Roue Avant', this)">Roue Avant</div>
+        <div class="zone-item" onclick="afficherZone('Roue Arriere', this)">Roue Arriere</div>
+        <div class="zone-item" onclick="afficherZone('Etrier Frein Avant', this)">Etrier Avant</div>
+        <div class="zone-item" onclick="afficherZone('Etrier Frein Arriere', this)">Etrier Arriere</div>
+        <div class="zone-item" onclick="afficherZone('Maitre cylindre avant', this)">Maitre cyl. Avant</div>
+        <div class="zone-item" onclick="afficherZone('Maitre cylindre arriere', this)">Maitre cyl. Arriere</div>
+      </div>
+    </div>
+
+    <div class="cat-group">
+      <div class="cat-header" onclick="toggleCat('suspension', this)">
+        <span>🔩 Suspension</span><span class="arrow">▶</span>
+      </div>
+      <div class="cat-body" id="cat-suspension">
+        <div class="zone-item" onclick="afficherZone('Fourche', this)">Fourche</div>
+        <div class="zone-item" onclick="afficherZone('Direction', this)">Direction</div>
+        <div class="zone-item" onclick="afficherZone('Bras arriere', this)">Bras arriere</div>
+        <div class="zone-item" onclick="afficherZone('Amortisseur Arriere', this)">Amortisseur</div>
+        <div class="zone-item" onclick="afficherZone('Guidon et cables', this)">Guidon et cables</div>
+        <div class="zone-item" onclick="afficherZone('Repose pieds', this)">Repose pieds</div>
+      </div>
+    </div>
+
+    <div class="cat-group">
+      <div class="cat-header" onclick="toggleCat('alimentation', this)">
+        <span>⛽ Alimentation</span><span class="arrow">▶</span>
+      </div>
+      <div class="cat-body" id="cat-alimentation">
+        <div class="zone-item" onclick="afficherZone('Admission 1', this)">Admission 1</div>
+        <div class="zone-item" onclick="afficherZone('Admission 2', this)">Admission 2</div>
+        <div class="zone-item" onclick="afficherZone('Admission 3', this)">Admission 3</div>
+        <div class="zone-item" onclick="afficherZone('Systeme AIS', this)">Systeme AIS</div>
+        <div class="zone-item" onclick="afficherZone('Echappement', this)">Echappement</div>
+        <div class="zone-item" onclick="afficherZone('Pompe a huile', this)">Pompe a huile</div>
+        <div class="zone-item" onclick="afficherZone('Radiateur huile', this)">Radiateur huile</div>
+        <div class="zone-item" onclick="afficherZone('Filtre a huile', this)">Filtre a huile</div>
+        <div class="zone-item" onclick="afficherZone('Pompe a eau', this)">Pompe a eau</div>
+        <div class="zone-item" onclick="afficherZone('Radiateur', this)">Radiateur</div>
+      </div>
+    </div>
+
   </div>
 
   <div class="main" id="main">
-    <div class="empty-state">
-      <div class="empty-icon">🏍️</div>
-      <h3>Yamaha YZF-R1 2020</h3>
-      <p>Selectionnez une zone dans le menu<br>pour afficher les pieces disponibles</p>
+    <div style="margin-bottom:25px;font-size:13px;color:#484f58;text-transform:uppercase;letter-spacing:2px;">Choisissez une categorie</div>
+    <div class="grandes-cats">
+      <div class="grande-cat" onclick="toggleCat('motorisation', document.querySelector('[onclick*=motorisation]'))">
+        <div class="gc-icon">🔧</div>
+        <div class="gc-nom">Motorisation</div>
+        <div class="gc-desc">Moteur · Carter · Embrayage</div>
+      </div>
+      <div class="grande-cat" onclick="toggleCat('carrosserie', document.querySelector('[onclick*=carrosserie]'))">
+        <div class="gc-icon">🛡️</div>
+        <div class="gc-nom">Carrosserie</div>
+        <div class="gc-desc">Carenages · Selle · Reservoir</div>
+      </div>
+      <div class="grande-cat" onclick="toggleCat('electrique', document.querySelector('[onclick*=electrique]'))">
+        <div class="gc-icon">⚡</div>
+        <div class="gc-nom">Electrique</div>
+        <div class="gc-desc">Phare · Compteur · Clignotants</div>
+      </div>
+      <div class="grande-cat" onclick="toggleCat('freinage', document.querySelector('[onclick*=freinage]'))">
+        <div class="gc-icon">🛞</div>
+        <div class="gc-nom">Freinage et Roues</div>
+        <div class="gc-desc">Etriers · Disques · Roues</div>
+      </div>
+      <div class="grande-cat" onclick="toggleCat('suspension', document.querySelector('[onclick*=suspension]'))">
+        <div class="gc-icon">🔩</div>
+        <div class="gc-nom">Suspension</div>
+        <div class="gc-desc">Fourche · Amortisseur · Direction</div>
+      </div>
+      <div class="grande-cat" onclick="toggleCat('alimentation', document.querySelector('[onclick*=alimentation]'))">
+        <div class="gc-icon">⛽</div>
+        <div class="gc-nom">Alimentation</div>
+        <div class="gc-desc">Admission · Echappement · Filtre</div>
+      </div>
     </div>
   </div>
-
 </div>
 
 <div class="overlay" id="overlay" onclick="fermerPanier()"></div>
@@ -409,20 +285,16 @@
   var panier = [];
   var zoneActive = null;
 
-  function chargerZones() {
-    fetch('http://localhost:8080/api/zones')
-      .then(function(r) { return r.json(); })
-      .then(function(zones) {
-        document.getElementById('zone-count').innerHTML = zones.length;
-        var html = '';
-        zones.forEach(function(z) {
-          html += '<div class="zone-item" onclick="afficherZone(\'' + z + '\', this)">' + z + '</div>';
-        });
-        document.getElementById('liste-zones').innerHTML = html;
-      })
-      .catch(function() {
-        document.getElementById('liste-zones').innerHTML = '<div style="padding:20px;color:#484f58;font-size:13px">API non disponible<br>Lance: python api.py</div>';
-      });
+  function toggleCat(cat, el) {
+    var body = document.getElementById('cat-' + cat);
+    if (!body) return;
+    var isOpen = body.classList.contains('open');
+    document.querySelectorAll('.cat-body').forEach(function(b) { b.classList.remove('open'); });
+    document.querySelectorAll('.cat-header').forEach(function(h) { h.classList.remove('open'); });
+    if (!isOpen) {
+      body.classList.add('open');
+      if (el) el.classList.add('open');
+    }
   }
 
   function afficherZone(zone, el) {
@@ -435,8 +307,7 @@
       .then(function(pieces) {
         var html = '<div class="zone-title">' + zone + '</div>';
         html += '<div class="zone-subtitle">Yamaha YZF-R1 2020 — ' + pieces.length + ' references</div>';
-        html += '<table>';
-        html += '<tr><th></th><th>Reference</th><th>Designation</th><th>Prix TTC</th></tr>';
+        html += '<table><tr><th></th><th>Reference</th><th>Designation</th><th>Prix TTC</th></tr>';
         pieces.forEach(function(p) {
           var id = 'p_' + p.ref.replace(/[^a-zA-Z0-9]/g, '_');
           html += '<tr>';
@@ -447,10 +318,8 @@
           html += '</tr>';
         });
         html += '</table>';
-        html += '<div class="total-bar">';
-        html += '<div class="total-info"><span class="total-label">Total selection</span><span class="total-amount"><span id="total">0.00</span> €</span></div>';
-        html += '<div><button class="btn-devis" onclick="ouvrirPanier()">Voir le panier</button><button class="btn-reset" onclick="reinitialiser()">Reinitialiser</button></div>';
-        html += '</div>';
+        html += '<div class="total-bar"><div class="total-info"><span class="total-label">Total selection</span><span class="total-amount"><span id="total">0.00</span> €</span></div>';
+        html += '<div><button class="btn-devis" onclick="ouvrirPanier()">Voir le panier</button><button class="btn-reset" onclick="reinitialiser()">Reinitialiser</button></div></div>';
         document.getElementById('main').innerHTML = html;
         mettreAJourTotal();
       });
@@ -483,11 +352,7 @@
     }
     var html = '';
     panier.forEach(function(p) {
-      html += '<div class="panier-item">';
-      html += '<div class="panier-item-nom">' + p.nom + '</div>';
-      html += '<div class="panier-item-ref">' + p.ref + '</div>';
-      html += '<div class="panier-item-prix">' + p.prix.toFixed(2) + ' €</div>';
-      html += '</div>';
+      html += '<div class="panier-item"><div class="panier-item-nom">' + p.nom + '</div><div class="panier-item-ref">' + p.ref + '</div><div class="panier-item-prix">' + p.prix.toFixed(2) + ' €</div></div>';
     });
     document.getElementById('panier-items').innerHTML = html;
   }
@@ -515,27 +380,20 @@
     var date = new Date().toLocaleDateString('fr-FR');
     var total = 0;
     panier.forEach(function(p) { total += p.prix; });
-
     var w = window.open('', '_blank');
     w.document.write('<html><head><title>Devis MotoChiffrage Pro</title>');
     w.document.write('<style>body{font-family:Arial;padding:40px;color:#333}h1{color:#e94560}table{width:100%;border-collapse:collapse;margin-top:20px}th{background:#f5f5f5;padding:10px;text-align:left}td{padding:10px;border-bottom:1px solid #eee}.total{font-size:24px;font-weight:bold;color:#e94560;margin-top:20px}</style>');
     w.document.write('</head><body>');
-    w.document.write('<h1>MotoChiffrage Pro</h1>');
-    w.document.write('<p>Date : ' + date + '</p>');
-    w.document.write('<p>Vehicule : Yamaha YZF-R1 2020</p>');
+    w.document.write('<h1>MotoChiffrage Pro</h1><p>Date : ' + date + '</p><p>Vehicule : Yamaha YZF-R1 2020</p>');
     w.document.write('<table><tr><th>Reference</th><th>Designation</th><th>Prix TTC</th></tr>');
     panier.forEach(function(p) {
       w.document.write('<tr><td>' + p.ref + '</td><td>' + p.nom + '</td><td>' + p.prix.toFixed(2) + ' EUR</td></tr>');
     });
-    w.document.write('<tr><td colspan="2"><strong>TOTAL PIECES</strong></td><td><strong>' + total.toFixed(2) + ' EUR</strong></td></tr>');
-    w.document.write('</table>');
-    w.document.write('<p class="total">Total : ' + total.toFixed(2) + ' EUR</p>');
-    w.document.write('</body></html>');
+    w.document.write('<tr><td colspan="2"><strong>TOTAL</strong></td><td><strong>' + total.toFixed(2) + ' EUR</strong></td></tr>');
+    w.document.write('</table><p class="total">Total : ' + total.toFixed(2) + ' EUR</p></body></html>');
     w.document.close();
     w.print();
   }
-
-  chargerZones();
 </script>
 
 </body>
