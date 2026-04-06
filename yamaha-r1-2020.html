@@ -6,98 +6,76 @@
   <title>Yamaha YZF-R1 2020 - MotoChiffrage Pro</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; background: #080c14; color: #e6edf3; height: 100vh; display: flex; flex-direction: column; }
+    body { font-family: Arial, sans-serif; background: #080c14; color: #e6edf3; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
 
-    .header { background: #0d1117; padding: 15px 25px; border-bottom: 1px solid #1a2332; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+    .header { background: #0d1117; padding: 12px 25px; border-bottom: 1px solid #1a2332; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
     .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; }
     .breadcrumb a { color: #e94560; text-decoration: none; }
     .breadcrumb span { color: #484f58; }
     .header-right { display: flex; align-items: center; gap: 15px; }
     .panier-btn { background: #e94560; color: white; border: none; padding: 8px 18px; border-radius: 20px; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: bold; }
-    .panier-btn:hover { background: #c73652; }
     .panier-count { background: white; color: #e94560; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; }
 
-    .moto-banner { background: linear-gradient(135deg,#080c14,#0d1117); border-bottom: 1px solid #1a2332; padding: 20px 25px; display: flex; align-items: center; gap: 30px; flex-shrink: 0; }
-    .moto-banner img { height: 100px; object-fit: contain; }
-    .moto-banner-tag { font-size: 11px; color: #484f58; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; }
-    .moto-banner-nom { font-size: 28px; font-weight: 800; color: #e6edf3; }
-    .moto-banner-specs { font-size: 13px; color: #58a6ff; margin-top: 4px; }
-    .moto-banner-badge { margin-left: auto; font-size: 12px; color: #3fb950; }
+    .cats-bar { background: #0d1117; border-bottom: 1px solid #1a2332; padding: 10px 20px; display: flex; gap: 8px; flex-shrink: 0; }
+    .cat-btn { background: #080c14; border: 1px solid #1a2332; border-radius: 20px; padding: 6px 16px; color: #8b949e; font-size: 12px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px; }
+    .cat-btn:hover { border-color: #e94560; color: #e94560; }
+    .cat-btn.active { background: #e94560; color: white; border-color: #e94560; }
 
     .layout { display: flex; flex: 1; overflow: hidden; }
 
-    .sidebar { width: 260px; background: #0d1117; border-right: 1px solid #1a2332; overflow-y: auto; flex-shrink: 0; }
-    .sidebar-title { padding: 15px 20px; font-size: 11px; color: #484f58; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid #1a2332; }
-
+    .sidebar { width: 220px; background: #0d1117; border-right: 1px solid #1a2332; overflow-y: auto; flex-shrink: 0; }
+    .sidebar-title { padding: 12px 15px; font-size: 10px; color: #484f58; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid #1a2332; }
     .cat-group { border-bottom: 1px solid #080c14; }
-    .cat-header { padding: 12px 20px; font-size: 13px; color: #e6edf3; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: all 0.2s; }
+    .cat-header { padding: 10px 15px; font-size: 12px; color: #e6edf3; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: all 0.2s; }
     .cat-header:hover { background: #150a0e; color: #e94560; }
     .cat-header.open { color: #e94560; background: #150a0e; }
-    .arrow { font-size: 10px; transition: transform 0.2s; display: inline-block; }
+    .arrow { font-size: 9px; transition: transform 0.2s; display: inline-block; }
     .cat-header.open .arrow { transform: rotate(90deg); }
     .cat-body { display: none; background: #080c14; }
     .cat-body.open { display: block; }
-    .zone-item { padding: 10px 20px 10px 30px; font-size: 12px; color: #8b949e; cursor: pointer; transition: all 0.2s; border-left: 3px solid transparent; }
+    .zone-item { padding: 8px 15px 8px 25px; font-size: 11px; color: #8b949e; cursor: pointer; transition: all 0.2s; border-left: 3px solid transparent; }
     .zone-item:hover { color: #e6edf3; border-left-color: #e94560; background: #0d1117; }
     .zone-item.active { color: #e94560; border-left-color: #e94560; font-weight: bold; background: #150a0e; }
 
-    .main { flex: 1; overflow-y: auto; padding: 25px; display: flex; flex-direction: column; }
-    .page-title { font-size: 13px; color: #484f58; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; flex-shrink: 0; }
+    .center { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; }
 
-    .grandes-cats { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; flex-shrink: 0; }
-    .grande-cat { background: #0d1117; border: 1px solid #1a2332; border-radius: 14px; padding: 20px 15px; text-align: center; cursor: pointer; transition: all 0.3s; }
-    .grande-cat:hover { border-color: #e94560; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(233,69,96,0.1); }
-    .grande-cat.selected { border-color: #e94560; background: #150a0e; }
-    .gc-icon { font-size: 35px; margin-bottom: 10px; }
-    .gc-nom { font-size: 14px; font-weight: bold; color: #e6edf3; margin-bottom: 4px; }
-    .gc-desc { font-size: 10px; color: #484f58; }
+    .moto-3d { flex: 1; position: relative; }
+    .moto-3d canvas { width: 100% !important; height: 100% !important; }
 
-    .sous-cats { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-top: 20px; flex-shrink: 0; }
-    .sous-cat { background: #0d1117; border: 1px solid #1a2332; border-radius: 10px; padding: 15px; text-align: center; cursor: pointer; transition: all 0.3s; }
-    .sous-cat:hover { border-color: #58a6ff; transform: translateY(-2px); }
-    .sous-cat.selected { border-color: #58a6ff; background: #0a1020; }
-    .sc-icon { font-size: 24px; margin-bottom: 8px; }
-    .sc-nom { font-size: 12px; font-weight: bold; color: #e6edf3; margin-bottom: 3px; }
-    .sc-count { font-size: 10px; color: #484f58; }
+    .hint { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); font-size: 11px; color: #484f58; background: rgba(13,17,23,0.8); padding: 5px 15px; border-radius: 20px; pointer-events: none; }
 
-    .zones-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px; flex-shrink: 0; }
-    .zone-btn { background: #0d1117; border: 1px solid #1a2332; border-radius: 8px; padding: 8px 14px; color: #8b949e; font-size: 12px; cursor: pointer; transition: all 0.2s; }
-    .zone-btn:hover { border-color: #e94560; color: #e94560; }
-    .zone-btn.active { border-color: #e94560; color: #e94560; background: #150a0e; }
+    .pieces-panel { height: 280px; background: #0d1117; border-top: 1px solid #1a2332; overflow-y: auto; flex-shrink: 0; }
+    .pieces-panel.hidden { display: none; }
+    .pieces-header { padding: 10px 20px; border-bottom: 1px solid #1a2332; display: flex; justify-content: space-between; align-items: center; }
+    .pieces-title { font-size: 14px; font-weight: bold; color: #e6edf3; }
+    .pieces-count { font-size: 11px; color: #484f58; }
 
-    .pieces-section { margin-top: 20px; border-top: 1px solid #1a2332; padding-top: 20px; flex: 1; }
-    .zone-title { font-size: 20px; font-weight: bold; color: #e6edf3; margin-bottom: 5px; }
-    .zone-subtitle { font-size: 13px; color: #484f58; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #1a2332; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    th { background: #080c14; padding: 8px 15px; text-align: left; color: #484f58; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #1a2332; position: sticky; top: 0; }
+    td { padding: 10px 15px; border-bottom: 1px solid #080c14; }
+    tr:hover td { background: #080c14; }
+    .ref-cell { font-family: monospace; color: #58a6ff; font-size: 11px; }
+    .prix-cell { color: #3fb950; font-weight: bold; }
+    .check-cell input { width: 15px; height: 15px; cursor: pointer; accent-color: #e94560; }
 
-    table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    th { background: #0d1117; padding: 10px 15px; text-align: left; color: #484f58; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #1a2332; }
-    td { padding: 12px 15px; border-bottom: 1px solid #0d1117; transition: background 0.2s; }
-    tr:hover td { background: #0d1117; }
-    .ref-cell { font-family: monospace; color: #58a6ff; font-size: 12px; }
-    .prix-cell { color: #3fb950; font-weight: bold; white-space: nowrap; }
-    .check-cell input { width: 16px; height: 16px; cursor: pointer; accent-color: #e94560; }
+    .total-bar { background: #0d1117; border-top: 1px solid #1a2332; padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+    .total-amount { font-size: 22px; font-weight: bold; color: #e94560; }
+    .btn-devis { background: #e94560; color: white; border: none; padding: 8px 18px; border-radius: 8px; font-size: 13px; cursor: pointer; font-weight: bold; }
+    .btn-reset { background: transparent; color: #484f58; border: 1px solid #1a2332; padding: 8px 14px; border-radius: 8px; font-size: 12px; cursor: pointer; margin-left: 8px; }
 
-    .total-bar { background: #0d1117; border-top: 1px solid #1a2332; padding: 15px 0; display: flex; align-items: center; justify-content: space-between; margin-top: 20px; }
-    .total-label { font-size: 12px; color: #484f58; }
-    .total-amount { font-size: 24px; font-weight: bold; color: #e94560; }
-    .btn-devis { background: #e94560; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-size: 13px; cursor: pointer; font-weight: bold; }
-    .btn-reset { background: transparent; color: #484f58; border: 1px solid #1a2332; padding: 10px 16px; border-radius: 8px; font-size: 12px; cursor: pointer; margin-left: 8px; }
-
-    .panier-panel { position: fixed; top: 0; right: -400px; width: 400px; height: 100vh; background: #0d1117; border-left: 1px solid #1a2332; z-index: 1000; transition: right 0.3s; display: flex; flex-direction: column; }
+    .panier-panel { position: fixed; top: 0; right: -380px; width: 380px; height: 100vh; background: #0d1117; border-left: 1px solid #1a2332; z-index: 1000; transition: right 0.3s; display: flex; flex-direction: column; }
     .panier-panel.open { right: 0; }
     .panier-header { padding: 20px; border-bottom: 1px solid #1a2332; display: flex; justify-content: space-between; align-items: center; }
-    .panier-header h2 { font-size: 18px; }
     .panier-close { background: none; border: none; color: #484f58; font-size: 24px; cursor: pointer; }
     .panier-items { flex: 1; overflow-y: auto; padding: 15px; }
-    .panier-item { background: #080c14; border: 1px solid #1a2332; border-radius: 8px; padding: 12px; margin-bottom: 10px; }
-    .panier-item-nom { font-size: 13px; color: #e6edf3; margin-bottom: 4px; }
-    .panier-item-ref { font-size: 11px; color: #58a6ff; font-family: monospace; }
-    .panier-item-prix { font-size: 14px; color: #3fb950; font-weight: bold; margin-top: 6px; }
-    .panier-footer { padding: 20px; border-top: 1px solid #1a2332; }
-    .panier-total { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-    .panier-total-label { color: #484f58; font-size: 13px; }
-    .panier-total-amount { font-size: 28px; font-weight: bold; color: #e94560; }
-    .btn-generer { width: 100%; background: #e94560; color: white; border: none; padding: 14px; border-radius: 8px; font-size: 15px; cursor: pointer; font-weight: bold; }
+    .panier-item { background: #080c14; border: 1px solid #1a2332; border-radius: 8px; padding: 10px; margin-bottom: 8px; }
+    .panier-item-nom { font-size: 12px; color: #e6edf3; margin-bottom: 3px; }
+    .panier-item-ref { font-size: 10px; color: #58a6ff; font-family: monospace; }
+    .panier-item-prix { font-size: 13px; color: #3fb950; font-weight: bold; margin-top: 4px; }
+    .panier-footer { padding: 15px; border-top: 1px solid #1a2332; }
+    .panier-total { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .panier-total-amount { font-size: 24px; font-weight: bold; color: #e94560; }
+    .btn-generer { width: 100%; background: #e94560; color: white; border: none; padding: 12px; border-radius: 8px; font-size: 14px; cursor: pointer; font-weight: bold; }
     .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 999; }
     .overlay.open { display: block; }
   </style>
@@ -112,386 +90,239 @@
     <span style="color:#e6edf3">YZF-R1 2020</span>
   </div>
   <div class="header-right">
-    <span style="font-size:12px;color:#484f58" id="pieces-count">0 piece selectionnee</span>
-    <button class="panier-btn" onclick="ouvrirPanier()">
-      🛒 Panier <span class="panier-count" id="panier-count">0</span>
-    </button>
+    <span style="font-size:12px;color:#484f58" id="pieces-count">0 piece</span>
+    <button class="panier-btn" onclick="ouvrirPanier()">🛒 Panier <span class="panier-count" id="panier-count">0</span></button>
   </div>
 </div>
 
-<div class="moto-banner">
-  <img src="https://www.pieces-yam.com/thumbs/y/pictures/300_300/2020-Yamaha-YZF1000-R1-B3L1-EU-Icon_Blue.webp">
-  <div>
-    <div class="moto-banner-tag">Yamaha · Supersport · 2020</div>
-    <div class="moto-banner-nom">YZF-R1</div>
-    <div class="moto-banner-specs">998 cc · 197 ch · 51 zones · 1458 references</div>
-  </div>
-  <div class="moto-banner-badge">✓ Prix officiels Yamaha</div>
+<div class="cats-bar">
+  <div class="cat-btn active" onclick="filtrerCat('motorisation', this)">🔧 Motorisation</div>
+  <div class="cat-btn" onclick="filtrerCat('carrosserie', this)">🛡️ Carrosserie</div>
+  <div class="cat-btn" onclick="filtrerCat('electrique', this)">⚡ Electrique</div>
+  <div class="cat-btn" onclick="filtrerCat('freinage', this)">🛞 Freinage</div>
+  <div class="cat-btn" onclick="filtrerCat('suspension', this)">🔩 Suspension</div>
+  <div class="cat-btn" onclick="filtrerCat('alimentation', this)">⛽ Alimentation</div>
 </div>
 
 <div class="layout">
   <div class="sidebar">
-    <div class="sidebar-title">Categories</div>
-    <div class="cat-group">
-      <div class="cat-header" onclick="toggleCat('motorisation', this)"><span>🔧 Motorisation</span><span class="arrow">▶</span></div>
-      <div class="cat-body" id="cat-motorisation">
-        <div class="zone-item" onclick="afficherZone('Culasse', this)">Culasse</div>
-        <div class="zone-item" onclick="afficherZone('Cylindre', this)">Cylindre</div>
-        <div class="zone-item" onclick="afficherZone('Vilebrequin-Piston', this)">Vilebrequin-Piston</div>
-        <div class="zone-item" onclick="afficherZone('Soupape', this)">Soupape</div>
-        <div class="zone-item" onclick="afficherZone('Arbre a cames', this)">Arbre a cames</div>
-        <div class="zone-item" onclick="afficherZone('Carter moteur', this)">Carter moteur</div>
-        <div class="zone-item" onclick="afficherZone('Carter moteur 1', this)">Carter moteur 1</div>
-        <div class="zone-item" onclick="afficherZone('Demarreur', this)">Demarreur</div>
-        <div class="zone-item" onclick="afficherZone('Embrayage demarreur', this)">Embrayage</div>
-        <div class="zone-item" onclick="afficherZone('Transmission', this)">Transmission</div>
-        <div class="zone-item" onclick="afficherZone('Barillet selecteur', this)">Barillet selecteur</div>
-        <div class="zone-item" onclick="afficherZone('Axe selecteur', this)">Axe selecteur</div>
-        <div class="zone-item" onclick="afficherZone('Admission 1', this)">Admission 1</div>
-        <div class="zone-item" onclick="afficherZone('Admission 2', this)">Admission 2</div>
-        <div class="zone-item" onclick="afficherZone('Admission 3', this)">Admission 3</div>
-        <div class="zone-item" onclick="afficherZone('Systeme AIS', this)">Systeme AIS</div>
-        <div class="zone-item" onclick="afficherZone('Echappement', this)">Echappement</div>
-        <div class="zone-item" onclick="afficherZone('Pompe a huile', this)">Pompe a huile</div>
-        <div class="zone-item" onclick="afficherZone('Radiateur huile', this)">Radiateur huile</div>
-        <div class="zone-item" onclick="afficherZone('Filtre a huile', this)">Filtre a huile</div>
-        <div class="zone-item" onclick="afficherZone('Pompe a eau', this)">Pompe a eau</div>
-        <div class="zone-item" onclick="afficherZone('Radiateur', this)">Radiateur</div>
-      </div>
-    </div>
-    <div class="cat-group">
-      <div class="cat-header" onclick="toggleCat('carrosserie', this)"><span>🛡️ Carrosserie</span><span class="arrow">▶</span></div>
-      <div class="cat-body" id="cat-carrosserie">
-        <div class="zone-item" onclick="afficherZone('Carenages 1', this)">Carenages 1</div>
-        <div class="zone-item" onclick="afficherZone('Carenages 2', this)">Carenages 2</div>
-        <div class="zone-item" onclick="afficherZone('Carenages 3', this)">Carenages 3</div>
-        <div class="zone-item" onclick="afficherZone('Garde Boue', this)">Garde Boue</div>
-        <div class="zone-item" onclick="afficherZone('Couvercle lateral', this)">Couvercle lateral</div>
-      </div>
-    </div>
-    <div class="cat-group">
-      <div class="cat-header" onclick="toggleCat('alimentation', this)"><span>⛽ Alimentation</span><span class="arrow">▶</span></div>
-      <div class="cat-body" id="cat-alimentation">
-        <div class="zone-item" onclick="afficherZone('Reservoir Selle', this)">Reservoir</div>
-        <div class="zone-item" onclick="afficherZone('Selle', this)">Selle</div>
-      </div>
-    </div>
-    <div class="cat-group">
-      <div class="cat-header" onclick="toggleCat('electrique', this)"><span>⚡ Electrique</span><span class="arrow">▶</span></div>
-      <div class="cat-body" id="cat-electrique">
-        <div class="zone-item" onclick="afficherZone('Allumage', this)">Allumage</div>
-        <div class="zone-item" onclick="afficherZone('Phare', this)">Phare</div>
-        <div class="zone-item" onclick="afficherZone('Feu arriere', this)">Feu arriere</div>
-        <div class="zone-item" onclick="afficherZone('Clignotant', this)">Clignotant</div>
-        <div class="zone-item" onclick="afficherZone('Compteur', this)">Compteur</div>
-        <div class="zone-item" onclick="afficherZone('Commodo levier', this)">Commodo levier</div>
-        <div class="zone-item" onclick="afficherZone('Partie electrique 1', this)">Electrique 1</div>
-        <div class="zone-item" onclick="afficherZone('Partie electrique 2', this)">Electrique 2</div>
-        <div class="zone-item" onclick="afficherZone('Partie electrique 3', this)">Electrique 3</div>
-      </div>
-    </div>
-    <div class="cat-group">
-      <div class="cat-header" onclick="toggleCat('freinage', this)"><span>🛞 Freinage et Roues</span><span class="arrow">▶</span></div>
-      <div class="cat-body" id="cat-freinage">
-        <div class="zone-item" onclick="afficherZone('Roue Avant', this)">Roue Avant</div>
-        <div class="zone-item" onclick="afficherZone('Roue Arriere', this)">Roue Arriere</div>
-        <div class="zone-item" onclick="afficherZone('Etrier Frein Avant', this)">Etrier Avant</div>
-        <div class="zone-item" onclick="afficherZone('Etrier Frein Arriere', this)">Etrier Arriere</div>
-        <div class="zone-item" onclick="afficherZone('Maitre cylindre avant', this)">Maitre cyl. Avant</div>
-        <div class="zone-item" onclick="afficherZone('Maitre cylindre arriere', this)">Maitre cyl. Arriere</div>
-      </div>
-    </div>
-    <div class="cat-group">
-      <div class="cat-header" onclick="toggleCat('suspension', this)"><span>🔩 Suspension</span><span class="arrow">▶</span></div>
-      <div class="cat-body" id="cat-suspension">
-        <div class="zone-item" onclick="afficherZone('Fourche', this)">Fourche</div>
-        <div class="zone-item" onclick="afficherZone('Direction', this)">Direction</div>
-        <div class="zone-item" onclick="afficherZone('Bras arriere', this)">Bras arriere</div>
-        <div class="zone-item" onclick="afficherZone('Amortisseur Arriere', this)">Amortisseur</div>
-        <div class="zone-item" onclick="afficherZone('Guidon et cables', this)">Guidon et cables</div>
-        <div class="zone-item" onclick="afficherZone('Repose pieds', this)">Repose pieds</div>
-      </div>
-    </div>
+    <div class="sidebar-title">Zones</div>
+    <div id="liste-zones"></div>
   </div>
 
-  <div class="main" id="main-container">
-    <div class="page-title">Choisissez une categorie</div>
+  <div class="center">
+    <div class="moto-3d" id="moto-3d"></div>
+    <div class="hint">🖱️ Tourner · Molette : zoom</div>
 
-    <div class="grandes-cats">
-      <div class="grande-cat" id="gc-motorisation" onclick="afficherSousCats('motorisation', this)">
-        <div class="gc-icon">🔧</div>
-        <div class="gc-nom">Motorisation</div>
-        <div class="gc-desc">Moteur · Admission · Echappement</div>
+    <div class="pieces-panel hidden" id="pieces-panel">
+      <div class="pieces-header">
+        <span class="pieces-title" id="pieces-title">Pieces</span>
+        <span class="pieces-count" id="pieces-subtitle"></span>
       </div>
-      <div class="grande-cat" id="gc-carrosserie" onclick="afficherSousCats('carrosserie', this)">
-        <div class="gc-icon">🛡️</div>
-        <div class="gc-nom">Carrosserie</div>
-        <div class="gc-desc">Carenages · Garde boue</div>
-      </div>
-      <div class="grande-cat" id="gc-alimentation" onclick="afficherSousCats('alimentation', this)">
-        <div class="gc-icon">⛽</div>
-        <div class="gc-nom">Alimentation</div>
-        <div class="gc-desc">Reservoir · Selle</div>
-      </div>
-      <div class="grande-cat" id="gc-electrique" onclick="afficherSousCats('electrique', this)">
-        <div class="gc-icon">⚡</div>
-        <div class="gc-nom">Electrique</div>
-        <div class="gc-desc">Phare · Compteur · Faisceau</div>
-      </div>
-      <div class="grande-cat" id="gc-freinage" onclick="afficherSousCats('freinage', this)">
-        <div class="gc-icon">🛞</div>
-        <div class="gc-nom">Freinage et Roues</div>
-        <div class="gc-desc">Etriers · Disques · Roues</div>
-      </div>
-      <div class="grande-cat" id="gc-suspension" onclick="afficherSousCats('suspension', this)">
-        <div class="gc-icon">🔩</div>
-        <div class="gc-nom">Suspension</div>
-        <div class="gc-desc">Fourche · Amortisseur</div>
-      </div>
+      <table id="pieces-table">
+        <tr><th></th><th>Reference</th><th>Designation</th><th>Prix TTC</th></tr>
+      </table>
     </div>
 
-    <div id="sous-cats-section"></div>
-    <div id="zones-section"></div>
-    <div id="pieces-section"></div>
+    <div class="total-bar">
+      <div>
+        <span style="font-size:11px;color:#484f58">Total pieces selectionnees</span><br>
+        <span class="total-amount"><span id="total">0.00</span> €</span>
+      </div>
+      <div>
+        <button class="btn-devis" onclick="ouvrirPanier()">Voir panier</button>
+        <button class="btn-reset" onclick="reinitialiser()">Reset</button>
+      </div>
+    </div>
   </div>
 </div>
 
 <div class="overlay" id="overlay" onclick="fermerPanier()"></div>
 <div class="panier-panel" id="panier-panel">
   <div class="panier-header">
-    <h2>🛒 Panier chiffrage</h2>
+    <h2>🛒 Panier</h2>
     <button class="panier-close" onclick="fermerPanier()">×</button>
   </div>
   <div class="panier-items" id="panier-items">
     <div style="text-align:center;color:#484f58;padding:40px 20px">
       <div style="font-size:40px;margin-bottom:10px">🛒</div>
-      <p>Aucune piece selectionnee</p>
+      <p>Aucune piece</p>
     </div>
   </div>
   <div class="panier-footer">
     <div class="panier-total">
-      <span class="panier-total-label">Total pieces</span>
+      <span style="color:#484f58;font-size:13px">Total</span>
       <span class="panier-total-amount"><span id="panier-total">0.00</span> €</span>
     </div>
     <button class="btn-generer" onclick="genererDevis()">📄 Generer le devis</button>
   </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 <script>
-  var panier = [];
-  var zoneActive = null;
 
-  var sousCatsData = {
-    'motorisation': [
-      {nom: 'Haut moteur', icon: '🔧', zones: ['Culasse','Cylindre','Vilebrequin-Piston','Soupape','Arbre a cames']},
-      {nom: 'Carter', icon: '⚙️', zones: ['Carter moteur','Carter moteur 1']},
-      {nom: 'Demarrage', icon: '🔑', zones: ['Demarreur','Embrayage demarreur']},
-      {nom: 'Boite de vitesses', icon: '🔄', zones: ['Transmission','Barillet selecteur','Axe selecteur']},
-      {nom: 'Admission', icon: '💨', zones: ['Admission 1','Admission 2','Admission 3','Systeme AIS']},
-      {nom: 'Echappement', icon: '💨', zones: ['Echappement']},
-      {nom: 'Lubrification', icon: '🛢️', zones: ['Pompe a huile','Radiateur huile','Filtre a huile','Pompe a eau','Radiateur']}
-    ],
-    'carrosserie': [
-      {nom: 'Carenages', icon: '🏁', zones: ['Carenages 1','Carenages 2','Carenages 3']},
-      {nom: 'Habillage', icon: '🛡️', zones: ['Garde Boue','Couvercle lateral']}
-    ],
-    'alimentation': [
-      {nom: 'Reservoir', icon: '⛽', zones: ['Reservoir Selle']},
-      {nom: 'Sellerie', icon: '🪑', zones: ['Selle']}
-    ],
-    'electrique': [
-      {nom: 'Eclairage', icon: '💡', zones: ['Phare','Feu arriere','Clignotant']},
-      {nom: 'Tableau de bord', icon: '📊', zones: ['Compteur','Commodo levier']},
-      {nom: 'Faisceau', icon: '⚡', zones: ['Allumage','Partie electrique 1','Partie electrique 2','Partie electrique 3']}
-    ],
-    'freinage': [
-      {nom: 'Roues', icon: '🛞', zones: ['Roue Avant','Roue Arriere']},
-      {nom: 'Frein avant', icon: '🔴', zones: ['Etrier Frein Avant','Maitre cylindre avant']},
-      {nom: 'Frein arriere', icon: '🟠', zones: ['Etrier Frein Arriere','Maitre cylindre arriere']}
-    ],
-    'suspension': [
-      {nom: 'Fourche avant', icon: '🔩', zones: ['Fourche','Direction']},
-      {nom: 'Suspension arriere', icon: '🔧', zones: ['Bras arriere','Amortisseur Arriere']},
-      {nom: 'Ergonomie', icon: '🏍️', zones: ['Guidon et cables','Repose pieds']}
-    ]
-  };
+var panier = [];
+var zoneActive = null;
 
-  function toggleCat(cat, el) {
-    var body = document.getElementById('cat-' + cat);
-    if (!body) return;
-    var isOpen = body.classList.contains('open');
-    document.querySelectorAll('.cat-body').forEach(function(b) { b.classList.remove('open'); });
-    document.querySelectorAll('.cat-header').forEach(function(h) { h.classList.remove('open'); });
-    if (!isOpen) {
-      body.classList.add('open');
-      el.classList.add('open');
-    }
-  }
+var catsZones = {
+  'motorisation': ['Culasse','Cylindre','Vilebrequin-Piston','Soupape','Arbre a cames','Carter moteur','Carter moteur 1','Demarreur','Embrayage demarreur','Transmission','Barillet selecteur','Axe selecteur','Admission 1','Admission 2','Admission 3','Systeme AIS','Echappement','Pompe a huile','Radiateur huile','Filtre a huile','Pompe a eau','Radiateur'],
+  'carrosserie': ['Carenages 1','Carenages 2','Carenages 3','Garde Boue','Couvercle lateral'],
+  'electrique': ['Allumage','Phare','Feu arriere','Clignotant','Compteur','Commodo levier','Partie electrique 1','Partie electrique 2','Partie electrique 3'],
+  'freinage': ['Roue Avant','Roue Arriere','Etrier Frein Avant','Etrier Frein Arriere','Maitre cylindre avant','Maitre cylindre arriere'],
+  'suspension': ['Fourche','Direction','Bras arriere','Amortisseur Arriere','Guidon et cables','Repose pieds'],
+  'alimentation': ['Reservoir Selle','Selle']
+};
 
-  function afficherSousCats(cat, el) {
-    document.querySelectorAll('.grande-cat').forEach(function(c) { c.classList.remove('selected'); });
-    el.classList.add('selected');
-    toggleCat(cat, document.querySelector('#cat-' + cat).previousElementSibling);
-    document.getElementById('zones-section').innerHTML = '';
-    document.getElementById('pieces-section').innerHTML = '';
+function filtrerCat(cat, el) {
+  document.querySelectorAll('.cat-btn').forEach(function(b) { b.classList.remove('active'); });
+  el.classList.add('active');
+  var zones = catsZones[cat] || [];
+  var html = '';
+  zones.forEach(function(z) {
+    html += '<div class="zone-item" onclick="afficherZone(\'' + z + '\', this)">' + z + '</div>';
+  });
+  document.getElementById('liste-zones').innerHTML = html;
+}
 
-    var data = sousCatsData[cat] || [];
-    var html = '<div style="margin-top:20px;margin-bottom:8px;font-size:11px;color:#484f58;text-transform:uppercase;letter-spacing:2px;">Sous-categories</div>';
-    html += '<div class="sous-cats">';
-    data.forEach(function(sc, i) {
-      html += '<div class="sous-cat" onclick="afficherZonesBtns(' + i + ', \'' + cat + '\', this)">';
-      html += '<div class="sc-icon">' + sc.icon + '</div>';
-      html += '<div class="sc-nom">' + sc.nom + '</div>';
-      html += '<div class="sc-count">' + sc.zones.length + ' zone' + (sc.zones.length > 1 ? 's' : '') + '</div>';
-      html += '</div>';
-    });
-    html += '</div>';
-    document.getElementById('sous-cats-section').innerHTML = html;
-    window.currentCat = cat;
-  }
+function afficherZone(zone, el) {
+  if (zoneActive) zoneActive.classList.remove('active');
+  el.classList.add('active');
+  zoneActive = el;
 
-  function afficherZonesBtns(index, cat, el) {
-    document.querySelectorAll('.sous-cat').forEach(function(c) { c.classList.remove('selected'); });
-    el.classList.add('selected');
-    document.getElementById('pieces-section').innerHTML = '';
-
-    var zones = sousCatsData[cat][index].zones;
-    var nom = sousCatsData[cat][index].nom;
-    var html = '<div style="margin-top:15px;margin-bottom:8px;font-size:11px;color:#484f58;text-transform:uppercase;letter-spacing:2px;">' + nom + '</div>';
-    html += '<div class="zones-buttons">';
-    zones.forEach(function(z) {
-      html += '<button class="zone-btn" onclick="afficherZoneDepuisBtn(\'' + z + '\', this)">' + z + '</button>';
-    });
-    html += '</div>';
-    document.getElementById('zones-section').innerHTML = html;
-  }
-
-  function afficherZoneDepuisBtn(zone, el) {
-    document.querySelectorAll('.zone-btn').forEach(function(b) { b.classList.remove('active'); });
-    el.classList.add('active');
-
-    var sideItem = document.querySelector('.zone-item.active');
-    if (sideItem) sideItem.classList.remove('active');
-
-    fetch('http://localhost:8080/api/pieces/' + encodeURIComponent(zone))
-      .then(function(r) { return r.json(); })
-      .then(function(pieces) {
-        var html = '<div class="pieces-section">';
-        html += '<div class="zone-title">' + zone + '</div>';
-        html += '<div class="zone-subtitle">Yamaha YZF-R1 2020 — ' + pieces.length + ' references</div>';
-        html += '<table><tr><th></th><th>Reference</th><th>Designation</th><th>Prix TTC</th></tr>';
-        pieces.forEach(function(p) {
-          var id = 'p_' + p.ref.replace(/[^a-zA-Z0-9]/g, '_');
-          html += '<tr><td class="check-cell"><input type="checkbox" id="' + id + '" onchange="togglePiece(this, \'' + p.ref + '\', \'' + p.nom.replace(/'/g, '') + '\', ' + p.prix + ')"></td>';
-          html += '<td class="ref-cell">' + p.ref + '</td>';
-          html += '<td>' + p.nom + '</td>';
-          html += '<td class="prix-cell">' + p.prix.toFixed(2) + ' €</td></tr>';
-        });
-        html += '</table>';
-        html += '<div class="total-bar"><div><span class="total-label">Total selection</span><br><span class="total-amount"><span id="total">0.00</span> €</span></div>';
-        html += '<div><button class="btn-devis" onclick="ouvrirPanier()">Voir le panier</button><button class="btn-reset" onclick="reinitialiser()">Reinitialiser</button></div></div>';
-        html += '</div>';
-        document.getElementById('pieces-section').innerHTML = html;
-        mettreAJourTotal();
+  fetch('http://localhost:8080/api/pieces/' + encodeURIComponent(zone))
+    .then(function(r) { return r.json(); })
+    .then(function(pieces) {
+      document.getElementById('pieces-panel').classList.remove('hidden');
+      document.getElementById('pieces-title').innerHTML = zone;
+      document.getElementById('pieces-subtitle').innerHTML = pieces.length + ' references';
+      var html = '<tr><th></th><th>Reference</th><th>Designation</th><th>Prix TTC</th></tr>';
+      pieces.forEach(function(p) {
+        var id = 'p_' + p.ref.replace(/[^a-zA-Z0-9]/g, '_');
+        html += '<tr><td class="check-cell"><input type="checkbox" id="' + id + '" onchange="togglePiece(this,\'' + p.ref + '\',\'' + p.nom.replace(/'/g,'') + '\',' + p.prix + ')"></td>';
+        html += '<td class="ref-cell">' + p.ref + '</td><td>' + p.nom + '</td><td class="prix-cell">' + p.prix.toFixed(2) + ' €</td></tr>';
       });
-  }
-
-  function afficherZone(zone, el) {
-    if (zoneActive) zoneActive.classList.remove('active');
-    el.classList.add('active');
-    zoneActive = el;
-    document.getElementById('sous-cats-section').innerHTML = '';
-    document.getElementById('zones-section').innerHTML = '';
-    document.querySelectorAll('.grande-cat').forEach(function(c) { c.classList.remove('selected'); });
-
-    fetch('http://localhost:8080/api/pieces/' + encodeURIComponent(zone))
-      .then(function(r) { return r.json(); })
-      .then(function(pieces) {
-        var html = '<div class="pieces-section">';
-        html += '<div class="zone-title">' + zone + '</div>';
-        html += '<div class="zone-subtitle">Yamaha YZF-R1 2020 — ' + pieces.length + ' references</div>';
-        html += '<table><tr><th></th><th>Reference</th><th>Designation</th><th>Prix TTC</th></tr>';
-        pieces.forEach(function(p) {
-          var id = 'p_' + p.ref.replace(/[^a-zA-Z0-9]/g, '_');
-          html += '<tr><td class="check-cell"><input type="checkbox" id="' + id + '" onchange="togglePiece(this, \'' + p.ref + '\', \'' + p.nom.replace(/'/g, '') + '\', ' + p.prix + ')"></td>';
-          html += '<td class="ref-cell">' + p.ref + '</td>';
-          html += '<td>' + p.nom + '</td>';
-          html += '<td class="prix-cell">' + p.prix.toFixed(2) + ' €</td></tr>';
-        });
-        html += '</table>';
-        html += '<div class="total-bar"><div><span class="total-label">Total selection</span><br><span class="total-amount"><span id="total">0.00</span> €</span></div>';
-        html += '<div><button class="btn-devis" onclick="ouvrirPanier()">Voir le panier</button><button class="btn-reset" onclick="reinitialiser()">Reinitialiser</button></div></div>';
-        html += '</div>';
-        document.getElementById('pieces-section').innerHTML = html;
-        mettreAJourTotal();
-      });
-  }
-
-  function togglePiece(checkbox, ref, nom, prix) {
-    if (checkbox.checked) { panier.push({ref: ref, nom: nom, prix: prix}); }
-    else { panier = panier.filter(function(p) { return p.ref !== ref; }); }
-    mettreAJourTotal();
-    mettreAJourPanier();
-  }
-
-  function mettreAJourTotal() {
-    var total = 0;
-    panier.forEach(function(p) { total += p.prix; });
-    var el = document.getElementById('total');
-    if (el) el.innerHTML = total.toFixed(2);
-    document.getElementById('panier-count').innerHTML = panier.length;
-    document.getElementById('pieces-count').innerHTML = panier.length + ' piece' + (panier.length > 1 ? 's' : '') + ' selectionnee' + (panier.length > 1 ? 's' : '');
-    document.getElementById('panier-total').innerHTML = total.toFixed(2);
-  }
-
-  function mettreAJourPanier() {
-    if (panier.length === 0) {
-      document.getElementById('panier-items').innerHTML = '<div style="text-align:center;color:#484f58;padding:40px 20px"><div style="font-size:40px;margin-bottom:10px">🛒</div><p>Aucune piece selectionnee</p></div>';
-      return;
-    }
-    var html = '';
-    panier.forEach(function(p) {
-      html += '<div class="panier-item"><div class="panier-item-nom">' + p.nom + '</div><div class="panier-item-ref">' + p.ref + '</div><div class="panier-item-prix">' + p.prix.toFixed(2) + ' €</div></div>';
+      document.getElementById('pieces-table').innerHTML = html;
+      mettreAJourTotal();
     });
-    document.getElementById('panier-items').innerHTML = html;
-  }
+}
 
-  function ouvrirPanier() {
-    document.getElementById('panier-panel').classList.add('open');
-    document.getElementById('overlay').classList.add('open');
-  }
+function togglePiece(checkbox, ref, nom, prix) {
+  if (checkbox.checked) { panier.push({ref:ref, nom:nom, prix:prix}); }
+  else { panier = panier.filter(function(p) { return p.ref !== ref; }); }
+  mettreAJourTotal();
+  mettreAJourPanier();
+}
 
-  function fermerPanier() {
-    document.getElementById('panier-panel').classList.remove('open');
-    document.getElementById('overlay').classList.remove('open');
-  }
+function mettreAJourTotal() {
+  var total = 0;
+  panier.forEach(function(p) { total += p.prix; });
+  document.getElementById('total').innerHTML = total.toFixed(2);
+  document.getElementById('panier-count').innerHTML = panier.length;
+  document.getElementById('pieces-count').innerHTML = panier.length + ' piece' + (panier.length > 1 ? 's' : '');
+  document.getElementById('panier-total').innerHTML = total.toFixed(2);
+}
 
-  function reinitialiser() {
-    panier = [];
-    mettreAJourTotal();
-    mettreAJourPanier();
-    document.querySelectorAll('input[type="checkbox"]').forEach(function(c) { c.checked = false; });
-    if (document.getElementById('total')) document.getElementById('total').innerHTML = '0.00';
+function mettreAJourPanier() {
+  if (panier.length === 0) {
+    document.getElementById('panier-items').innerHTML = '<div style="text-align:center;color:#484f58;padding:40px 20px"><div style="font-size:40px;margin-bottom:10px">🛒</div><p>Aucune piece</p></div>';
+    return;
   }
+  var html = '';
+  panier.forEach(function(p) {
+    html += '<div class="panier-item"><div class="panier-item-nom">' + p.nom + '</div><div class="panier-item-ref">' + p.ref + '</div><div class="panier-item-prix">' + p.prix.toFixed(2) + ' €</div></div>';
+  });
+  document.getElementById('panier-items').innerHTML = html;
+}
 
-  function genererDevis() {
-    if (panier.length === 0) { alert('Aucune piece selectionnee !'); return; }
-    var date = new Date().toLocaleDateString('fr-FR');
-    var total = 0;
-    panier.forEach(function(p) { total += p.prix; });
-    var w = window.open('', '_blank');
-    w.document.write('<html><head><title>Devis MotoChiffrage Pro</title>');
-    w.document.write('<style>body{font-family:Arial;padding:40px;color:#333}h1{color:#e94560}table{width:100%;border-collapse:collapse;margin-top:20px}th{background:#f5f5f5;padding:10px;text-align:left}td{padding:10px;border-bottom:1px solid #eee}.total{font-size:24px;font-weight:bold;color:#e94560;margin-top:20px}</style>');
-    w.document.write('</head><body><h1>MotoChiffrage Pro</h1><p>Date : ' + date + '</p><p>Vehicule : Yamaha YZF-R1 2020</p>');
-    w.document.write('<table><tr><th>Reference</th><th>Designation</th><th>Prix TTC</th></tr>');
-    panier.forEach(function(p) {
-      w.document.write('<tr><td>' + p.ref + '</td><td>' + p.nom + '</td><td>' + p.prix.toFixed(2) + ' EUR</td></tr>');
-    });
-    w.document.write('<tr><td colspan="2"><strong>TOTAL</strong></td><td><strong>' + total.toFixed(2) + ' EUR</strong></td></tr>');
-    w.document.write('</table><p class="total">Total : ' + total.toFixed(2) + ' EUR</p></body></html>');
-    w.document.close();
-    w.print();
-  }
+function ouvrirPanier() {
+  document.getElementById('panier-panel').classList.add('open');
+  document.getElementById('overlay').classList.add('open');
+}
+
+function fermerPanier() {
+  document.getElementById('panier-panel').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+}
+
+function reinitialiser() {
+  panier = [];
+  mettreAJourTotal();
+  mettreAJourPanier();
+  document.querySelectorAll('input[type="checkbox"]').forEach(function(c) { c.checked = false; });
+}
+
+function genererDevis() {
+  if (panier.length === 0) { alert('Aucune piece !'); return; }
+  var date = new Date().toLocaleDateString('fr-FR');
+  var total = 0;
+  panier.forEach(function(p) { total += p.prix; });
+  var w = window.open('', '_blank');
+  w.document.write('<html><head><title>Devis</title><style>body{font-family:Arial;padding:40px;color:#333}h1{color:#e94560}table{width:100%;border-collapse:collapse;margin-top:20px}th{background:#f5f5f5;padding:10px;text-align:left}td{padding:10px;border-bottom:1px solid #eee}</style></head><body>');
+  w.document.write('<h1>MotoChiffrage Pro</h1><p>Date : ' + date + '</p><p>Yamaha YZF-R1 2020</p>');
+  w.document.write('<table><tr><th>Reference</th><th>Designation</th><th>Prix TTC</th></tr>');
+  panier.forEach(function(p) { w.document.write('<tr><td>' + p.ref + '</td><td>' + p.nom + '</td><td>' + p.prix.toFixed(2) + ' EUR</td></tr>'); });
+  w.document.write('<tr><td colspan="2"><strong>TOTAL</strong></td><td><strong>' + total.toFixed(2) + ' EUR</strong></td></tr></table></body></html>');
+  w.document.close(); w.print();
+}
+
+filtrerCat('motorisation', document.querySelector('.cat-btn'));
+
+var scene = new THREE.Scene();
+scene.background = new THREE.Color(0x080c14);
+var w = document.getElementById('moto-3d').offsetWidth || window.innerWidth - 220;
+var h = document.getElementById('moto-3d').offsetHeight || 400;
+var camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 1000);
+camera.position.set(0, 1, 5);
+var renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(w, h);
+document.getElementById('moto-3d').appendChild(renderer.domElement);
+scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+var dir = new THREE.DirectionalLight(0xffffff, 1);
+dir.position.set(5, 10, 5);
+scene.add(dir);
+
+var loader = new THREE.GLTFLoader();
+loader.load('yamaha_r1.glb',
+  function(gltf) {
+    var moto = gltf.scene;
+    var box = new THREE.Box3().setFromObject(moto);
+    var center = box.getCenter(new THREE.Vector3());
+    var size = box.getSize(new THREE.Vector3());
+    var scale = 3 / Math.max(size.x, size.y, size.z);
+    moto.scale.setScalar(scale);
+    moto.position.sub(center.multiplyScalar(scale));
+    scene.add(moto);
+  },
+  function(xhr) {},
+  function(err) { console.log(err); }
+);
+
+var drag = false, prev = {x:0,y:0}, rotY = 0.3, rotX = 0.2, zoom = 5;
+
+document.getElementById('moto-3d').addEventListener('mousedown', function(e) { drag = true; prev = {x:e.clientX, y:e.clientY}; });
+document.addEventListener('mouseup', function() { drag = false; });
+document.addEventListener('mousemove', function(e) {
+  if (!drag) return;
+  rotY += (e.clientX - prev.x) * 0.01;
+  rotX += (e.clientY - prev.y) * 0.01;
+  rotX = Math.max(-1, Math.min(1, rotX));
+  prev = {x:e.clientX, y:e.clientY};
+});
+document.getElementById('moto-3d').addEventListener('wheel', function(e) {
+  zoom += e.deltaY * 0.005;
+  zoom = Math.max(2, Math.min(12, zoom));
+});
+
+function animate() {
+  requestAnimationFrame(animate);
+  camera.position.x = zoom * Math.sin(rotY) * Math.cos(rotX);
+  camera.position.y = zoom * Math.sin(rotX);
+  camera.position.z = zoom * Math.cos(rotY) * Math.cos(rotX);
+  camera.lookAt(0, 0, 0);
+  renderer.render(scene, camera);
+}
+animate();
 </script>
 
 </body>
