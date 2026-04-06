@@ -19,11 +19,10 @@
 
     .moto-banner { background: linear-gradient(135deg,#080c14,#0d1117); border-bottom: 1px solid #1a2332; padding: 20px 25px; display: flex; align-items: center; gap: 30px; flex-shrink: 0; }
     .moto-banner img { height: 100px; object-fit: contain; }
-    .moto-banner-info { flex: 1; }
     .moto-banner-tag { font-size: 11px; color: #484f58; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; }
     .moto-banner-nom { font-size: 28px; font-weight: 800; color: #e6edf3; }
     .moto-banner-specs { font-size: 13px; color: #58a6ff; margin-top: 4px; }
-    .moto-banner-badge { text-align: right; font-size: 12px; color: #3fb950; }
+    .moto-banner-badge { margin-left: auto; font-size: 12px; color: #3fb950; }
 
     .layout { display: flex; flex: 1; overflow: hidden; }
 
@@ -38,22 +37,37 @@
     .cat-header.open .arrow { transform: rotate(90deg); }
     .cat-body { display: none; background: #080c14; }
     .cat-body.open { display: block; }
-
     .zone-item { padding: 10px 20px 10px 30px; font-size: 12px; color: #8b949e; cursor: pointer; transition: all 0.2s; border-left: 3px solid transparent; }
     .zone-item:hover { color: #e6edf3; border-left-color: #e94560; background: #0d1117; }
     .zone-item.active { color: #e94560; border-left-color: #e94560; font-weight: bold; background: #150a0e; }
 
-    .main { flex: 1; overflow-y: auto; padding: 25px; }
+    .main { flex: 1; overflow-y: auto; padding: 25px; display: flex; flex-direction: column; }
+    .page-title { font-size: 13px; color: #484f58; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; flex-shrink: 0; }
 
-    .grandes-cats { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
-    .grande-cat { background: #0d1117; border: 1px solid #1a2332; border-radius: 14px; padding: 25px; text-align: center; cursor: pointer; transition: all 0.3s; }
+    .grandes-cats { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; flex-shrink: 0; }
+    .grande-cat { background: #0d1117; border: 1px solid #1a2332; border-radius: 14px; padding: 20px 15px; text-align: center; cursor: pointer; transition: all 0.3s; }
     .grande-cat:hover { border-color: #e94560; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(233,69,96,0.1); }
-    .gc-icon { font-size: 40px; margin-bottom: 12px; }
-    .gc-nom { font-size: 16px; font-weight: bold; color: #e6edf3; margin-bottom: 5px; }
-    .gc-desc { font-size: 11px; color: #484f58; }
+    .grande-cat.selected { border-color: #e94560; background: #150a0e; }
+    .gc-icon { font-size: 35px; margin-bottom: 10px; }
+    .gc-nom { font-size: 14px; font-weight: bold; color: #e6edf3; margin-bottom: 4px; }
+    .gc-desc { font-size: 10px; color: #484f58; }
 
-    .zone-title { font-size: 22px; font-weight: bold; color: #e6edf3; margin-bottom: 5px; }
-    .zone-subtitle { font-size: 13px; color: #484f58; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #1a2332; }
+    .sous-cats { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-top: 20px; flex-shrink: 0; }
+    .sous-cat { background: #0d1117; border: 1px solid #1a2332; border-radius: 10px; padding: 15px; text-align: center; cursor: pointer; transition: all 0.3s; }
+    .sous-cat:hover { border-color: #58a6ff; transform: translateY(-2px); }
+    .sous-cat.selected { border-color: #58a6ff; background: #0a1020; }
+    .sc-icon { font-size: 24px; margin-bottom: 8px; }
+    .sc-nom { font-size: 12px; font-weight: bold; color: #e6edf3; margin-bottom: 3px; }
+    .sc-count { font-size: 10px; color: #484f58; }
+
+    .zones-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px; flex-shrink: 0; }
+    .zone-btn { background: #0d1117; border: 1px solid #1a2332; border-radius: 8px; padding: 8px 14px; color: #8b949e; font-size: 12px; cursor: pointer; transition: all 0.2s; }
+    .zone-btn:hover { border-color: #e94560; color: #e94560; }
+    .zone-btn.active { border-color: #e94560; color: #e94560; background: #150a0e; }
+
+    .pieces-section { margin-top: 20px; border-top: 1px solid #1a2332; padding-top: 20px; flex: 1; }
+    .zone-title { font-size: 20px; font-weight: bold; color: #e6edf3; margin-bottom: 5px; }
+    .zone-subtitle { font-size: 13px; color: #484f58; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #1a2332; }
 
     table { width: 100%; border-collapse: collapse; font-size: 13px; }
     th { background: #0d1117; padding: 10px 15px; text-align: left; color: #484f58; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #1a2332; }
@@ -63,14 +77,11 @@
     .prix-cell { color: #3fb950; font-weight: bold; white-space: nowrap; }
     .check-cell input { width: 16px; height: 16px; cursor: pointer; accent-color: #e94560; }
 
-    .total-bar { position: sticky; bottom: 0; background: #0d1117; border-top: 1px solid #1a2332; padding: 15px 25px; display: flex; align-items: center; justify-content: space-between; margin: 20px -25px -25px; }
-    .total-info { display: flex; align-items: center; gap: 20px; }
+    .total-bar { background: #0d1117; border-top: 1px solid #1a2332; padding: 15px 0; display: flex; align-items: center; justify-content: space-between; margin-top: 20px; }
     .total-label { font-size: 12px; color: #484f58; }
-    .total-amount { font-size: 28px; font-weight: bold; color: #e94560; }
-    .btn-devis { background: #e94560; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-size: 14px; cursor: pointer; font-weight: bold; }
-    .btn-devis:hover { background: #c73652; }
-    .btn-reset { background: transparent; color: #484f58; border: 1px solid #1a2332; padding: 12px 20px; border-radius: 8px; font-size: 13px; cursor: pointer; margin-left: 10px; }
-    .btn-reset:hover { border-color: #e94560; color: #e94560; }
+    .total-amount { font-size: 24px; font-weight: bold; color: #e94560; }
+    .btn-devis { background: #e94560; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-size: 13px; cursor: pointer; font-weight: bold; }
+    .btn-reset { background: transparent; color: #484f58; border: 1px solid #1a2332; padding: 10px 16px; border-radius: 8px; font-size: 12px; cursor: pointer; margin-left: 8px; }
 
     .panier-panel { position: fixed; top: 0; right: -400px; width: 400px; height: 100vh; background: #0d1117; border-left: 1px solid #1a2332; z-index: 1000; transition: right 0.3s; display: flex; flex-direction: column; }
     .panier-panel.open { right: 0; }
@@ -110,7 +121,7 @@
 
 <div class="moto-banner">
   <img src="https://www.pieces-yam.com/thumbs/y/pictures/300_300/2020-Yamaha-YZF1000-R1-B3L1-EU-Icon_Blue.webp">
-  <div class="moto-banner-info">
+  <div>
     <div class="moto-banner-tag">Yamaha · Supersport · 2020</div>
     <div class="moto-banner-nom">YZF-R1</div>
     <div class="moto-banner-specs">998 cc · 197 ch · 51 zones · 1458 references</div>
@@ -121,11 +132,8 @@
 <div class="layout">
   <div class="sidebar">
     <div class="sidebar-title">Categories</div>
-
     <div class="cat-group">
-      <div class="cat-header" onclick="toggleCat('motorisation', this)">
-        <span>🔧 Motorisation</span><span class="arrow">▶</span>
-      </div>
+      <div class="cat-header" onclick="toggleCat('motorisation', this)"><span>🔧 Motorisation</span><span class="arrow">▶</span></div>
       <div class="cat-body" id="cat-motorisation">
         <div class="zone-item" onclick="afficherZone('Culasse', this)">Culasse</div>
         <div class="zone-item" onclick="afficherZone('Cylindre', this)">Cylindre</div>
@@ -139,74 +147,6 @@
         <div class="zone-item" onclick="afficherZone('Transmission', this)">Transmission</div>
         <div class="zone-item" onclick="afficherZone('Barillet selecteur', this)">Barillet selecteur</div>
         <div class="zone-item" onclick="afficherZone('Axe selecteur', this)">Axe selecteur</div>
-      </div>
-    </div>
-
-    <div class="cat-group">
-      <div class="cat-header" onclick="toggleCat('carrosserie', this)">
-        <span>🛡️ Carrosserie</span><span class="arrow">▶</span>
-      </div>
-      <div class="cat-body" id="cat-carrosserie">
-        <div class="zone-item" onclick="afficherZone('Carenages 1', this)">Carenages 1</div>
-        <div class="zone-item" onclick="afficherZone('Carenages 2', this)">Carenages 2</div>
-        <div class="zone-item" onclick="afficherZone('Carenages 3', this)">Carenages 3</div>
-        <div class="zone-item" onclick="afficherZone('Garde Boue', this)">Garde Boue</div>
-        <div class="zone-item" onclick="afficherZone('Couvercle lateral', this)">Couvercle lateral</div>
-        <div class="zone-item" onclick="afficherZone('Reservoir Selle', this)">Reservoir</div>
-        <div class="zone-item" onclick="afficherZone('Selle', this)">Selle</div>
-      </div>
-    </div>
-
-    <div class="cat-group">
-      <div class="cat-header" onclick="toggleCat('electrique', this)">
-        <span>⚡ Electrique</span><span class="arrow">▶</span>
-      </div>
-      <div class="cat-body" id="cat-electrique">
-        <div class="zone-item" onclick="afficherZone('Allumage', this)">Allumage</div>
-        <div class="zone-item" onclick="afficherZone('Phare', this)">Phare</div>
-        <div class="zone-item" onclick="afficherZone('Feu arriere', this)">Feu arriere</div>
-        <div class="zone-item" onclick="afficherZone('Clignotant', this)">Clignotant</div>
-        <div class="zone-item" onclick="afficherZone('Compteur', this)">Compteur</div>
-        <div class="zone-item" onclick="afficherZone('Commodo levier', this)">Commodo levier</div>
-        <div class="zone-item" onclick="afficherZone('Partie electrique 1', this)">Electrique 1</div>
-        <div class="zone-item" onclick="afficherZone('Partie electrique 2', this)">Electrique 2</div>
-        <div class="zone-item" onclick="afficherZone('Partie electrique 3', this)">Electrique 3</div>
-      </div>
-    </div>
-
-    <div class="cat-group">
-      <div class="cat-header" onclick="toggleCat('freinage', this)">
-        <span>🛞 Freinage et Roues</span><span class="arrow">▶</span>
-      </div>
-      <div class="cat-body" id="cat-freinage">
-        <div class="zone-item" onclick="afficherZone('Roue Avant', this)">Roue Avant</div>
-        <div class="zone-item" onclick="afficherZone('Roue Arriere', this)">Roue Arriere</div>
-        <div class="zone-item" onclick="afficherZone('Etrier Frein Avant', this)">Etrier Avant</div>
-        <div class="zone-item" onclick="afficherZone('Etrier Frein Arriere', this)">Etrier Arriere</div>
-        <div class="zone-item" onclick="afficherZone('Maitre cylindre avant', this)">Maitre cyl. Avant</div>
-        <div class="zone-item" onclick="afficherZone('Maitre cylindre arriere', this)">Maitre cyl. Arriere</div>
-      </div>
-    </div>
-
-    <div class="cat-group">
-      <div class="cat-header" onclick="toggleCat('suspension', this)">
-        <span>🔩 Suspension</span><span class="arrow">▶</span>
-      </div>
-      <div class="cat-body" id="cat-suspension">
-        <div class="zone-item" onclick="afficherZone('Fourche', this)">Fourche</div>
-        <div class="zone-item" onclick="afficherZone('Direction', this)">Direction</div>
-        <div class="zone-item" onclick="afficherZone('Bras arriere', this)">Bras arriere</div>
-        <div class="zone-item" onclick="afficherZone('Amortisseur Arriere', this)">Amortisseur</div>
-        <div class="zone-item" onclick="afficherZone('Guidon et cables', this)">Guidon et cables</div>
-        <div class="zone-item" onclick="afficherZone('Repose pieds', this)">Repose pieds</div>
-      </div>
-    </div>
-
-    <div class="cat-group">
-      <div class="cat-header" onclick="toggleCat('alimentation', this)">
-        <span>⛽ Alimentation</span><span class="arrow">▶</span>
-      </div>
-      <div class="cat-body" id="cat-alimentation">
         <div class="zone-item" onclick="afficherZone('Admission 1', this)">Admission 1</div>
         <div class="zone-item" onclick="afficherZone('Admission 2', this)">Admission 2</div>
         <div class="zone-item" onclick="afficherZone('Admission 3', this)">Admission 3</div>
@@ -219,48 +159,104 @@
         <div class="zone-item" onclick="afficherZone('Radiateur', this)">Radiateur</div>
       </div>
     </div>
-
+    <div class="cat-group">
+      <div class="cat-header" onclick="toggleCat('carrosserie', this)"><span>🛡️ Carrosserie</span><span class="arrow">▶</span></div>
+      <div class="cat-body" id="cat-carrosserie">
+        <div class="zone-item" onclick="afficherZone('Carenages 1', this)">Carenages 1</div>
+        <div class="zone-item" onclick="afficherZone('Carenages 2', this)">Carenages 2</div>
+        <div class="zone-item" onclick="afficherZone('Carenages 3', this)">Carenages 3</div>
+        <div class="zone-item" onclick="afficherZone('Garde Boue', this)">Garde Boue</div>
+        <div class="zone-item" onclick="afficherZone('Couvercle lateral', this)">Couvercle lateral</div>
+      </div>
+    </div>
+    <div class="cat-group">
+      <div class="cat-header" onclick="toggleCat('alimentation', this)"><span>⛽ Alimentation</span><span class="arrow">▶</span></div>
+      <div class="cat-body" id="cat-alimentation">
+        <div class="zone-item" onclick="afficherZone('Reservoir Selle', this)">Reservoir</div>
+        <div class="zone-item" onclick="afficherZone('Selle', this)">Selle</div>
+      </div>
+    </div>
+    <div class="cat-group">
+      <div class="cat-header" onclick="toggleCat('electrique', this)"><span>⚡ Electrique</span><span class="arrow">▶</span></div>
+      <div class="cat-body" id="cat-electrique">
+        <div class="zone-item" onclick="afficherZone('Allumage', this)">Allumage</div>
+        <div class="zone-item" onclick="afficherZone('Phare', this)">Phare</div>
+        <div class="zone-item" onclick="afficherZone('Feu arriere', this)">Feu arriere</div>
+        <div class="zone-item" onclick="afficherZone('Clignotant', this)">Clignotant</div>
+        <div class="zone-item" onclick="afficherZone('Compteur', this)">Compteur</div>
+        <div class="zone-item" onclick="afficherZone('Commodo levier', this)">Commodo levier</div>
+        <div class="zone-item" onclick="afficherZone('Partie electrique 1', this)">Electrique 1</div>
+        <div class="zone-item" onclick="afficherZone('Partie electrique 2', this)">Electrique 2</div>
+        <div class="zone-item" onclick="afficherZone('Partie electrique 3', this)">Electrique 3</div>
+      </div>
+    </div>
+    <div class="cat-group">
+      <div class="cat-header" onclick="toggleCat('freinage', this)"><span>🛞 Freinage et Roues</span><span class="arrow">▶</span></div>
+      <div class="cat-body" id="cat-freinage">
+        <div class="zone-item" onclick="afficherZone('Roue Avant', this)">Roue Avant</div>
+        <div class="zone-item" onclick="afficherZone('Roue Arriere', this)">Roue Arriere</div>
+        <div class="zone-item" onclick="afficherZone('Etrier Frein Avant', this)">Etrier Avant</div>
+        <div class="zone-item" onclick="afficherZone('Etrier Frein Arriere', this)">Etrier Arriere</div>
+        <div class="zone-item" onclick="afficherZone('Maitre cylindre avant', this)">Maitre cyl. Avant</div>
+        <div class="zone-item" onclick="afficherZone('Maitre cylindre arriere', this)">Maitre cyl. Arriere</div>
+      </div>
+    </div>
+    <div class="cat-group">
+      <div class="cat-header" onclick="toggleCat('suspension', this)"><span>🔩 Suspension</span><span class="arrow">▶</span></div>
+      <div class="cat-body" id="cat-suspension">
+        <div class="zone-item" onclick="afficherZone('Fourche', this)">Fourche</div>
+        <div class="zone-item" onclick="afficherZone('Direction', this)">Direction</div>
+        <div class="zone-item" onclick="afficherZone('Bras arriere', this)">Bras arriere</div>
+        <div class="zone-item" onclick="afficherZone('Amortisseur Arriere', this)">Amortisseur</div>
+        <div class="zone-item" onclick="afficherZone('Guidon et cables', this)">Guidon et cables</div>
+        <div class="zone-item" onclick="afficherZone('Repose pieds', this)">Repose pieds</div>
+      </div>
+    </div>
   </div>
 
-  <div class="main" id="main">
-    <div style="margin-bottom:25px;font-size:13px;color:#484f58;text-transform:uppercase;letter-spacing:2px;">Choisissez une categorie</div>
+  <div class="main" id="main-container">
+    <div class="page-title">Choisissez une categorie</div>
+
     <div class="grandes-cats">
-      <div class="grande-cat" onclick="toggleCat('motorisation', document.querySelector('[onclick*=motorisation]'))">
+      <div class="grande-cat" id="gc-motorisation" onclick="afficherSousCats('motorisation', this)">
         <div class="gc-icon">🔧</div>
         <div class="gc-nom">Motorisation</div>
-        <div class="gc-desc">Moteur · Carter · Embrayage</div>
+        <div class="gc-desc">Moteur · Admission · Echappement</div>
       </div>
-      <div class="grande-cat" onclick="toggleCat('carrosserie', document.querySelector('[onclick*=carrosserie]'))">
+      <div class="grande-cat" id="gc-carrosserie" onclick="afficherSousCats('carrosserie', this)">
         <div class="gc-icon">🛡️</div>
         <div class="gc-nom">Carrosserie</div>
-        <div class="gc-desc">Carenages · Selle · Reservoir</div>
+        <div class="gc-desc">Carenages · Garde boue</div>
       </div>
-      <div class="grande-cat" onclick="toggleCat('electrique', document.querySelector('[onclick*=electrique]'))">
+      <div class="grande-cat" id="gc-alimentation" onclick="afficherSousCats('alimentation', this)">
+        <div class="gc-icon">⛽</div>
+        <div class="gc-nom">Alimentation</div>
+        <div class="gc-desc">Reservoir · Selle</div>
+      </div>
+      <div class="grande-cat" id="gc-electrique" onclick="afficherSousCats('electrique', this)">
         <div class="gc-icon">⚡</div>
         <div class="gc-nom">Electrique</div>
-        <div class="gc-desc">Phare · Compteur · Clignotants</div>
+        <div class="gc-desc">Phare · Compteur · Faisceau</div>
       </div>
-      <div class="grande-cat" onclick="toggleCat('freinage', document.querySelector('[onclick*=freinage]'))">
+      <div class="grande-cat" id="gc-freinage" onclick="afficherSousCats('freinage', this)">
         <div class="gc-icon">🛞</div>
         <div class="gc-nom">Freinage et Roues</div>
         <div class="gc-desc">Etriers · Disques · Roues</div>
       </div>
-      <div class="grande-cat" onclick="toggleCat('suspension', document.querySelector('[onclick*=suspension]'))">
+      <div class="grande-cat" id="gc-suspension" onclick="afficherSousCats('suspension', this)">
         <div class="gc-icon">🔩</div>
         <div class="gc-nom">Suspension</div>
-        <div class="gc-desc">Fourche · Amortisseur · Direction</div>
-      </div>
-      <div class="grande-cat" onclick="toggleCat('alimentation', document.querySelector('[onclick*=alimentation]'))">
-        <div class="gc-icon">⛽</div>
-        <div class="gc-nom">Alimentation</div>
-        <div class="gc-desc">Admission · Echappement · Filtre</div>
+        <div class="gc-desc">Fourche · Amortisseur</div>
       </div>
     </div>
+
+    <div id="sous-cats-section"></div>
+    <div id="zones-section"></div>
+    <div id="pieces-section"></div>
   </div>
 </div>
 
 <div class="overlay" id="overlay" onclick="fermerPanier()"></div>
-
 <div class="panier-panel" id="panier-panel">
   <div class="panier-header">
     <h2>🛒 Panier chiffrage</h2>
@@ -285,6 +281,41 @@
   var panier = [];
   var zoneActive = null;
 
+  var sousCatsData = {
+    'motorisation': [
+      {nom: 'Haut moteur', icon: '🔧', zones: ['Culasse','Cylindre','Vilebrequin-Piston','Soupape','Arbre a cames']},
+      {nom: 'Carter', icon: '⚙️', zones: ['Carter moteur','Carter moteur 1']},
+      {nom: 'Demarrage', icon: '🔑', zones: ['Demarreur','Embrayage demarreur']},
+      {nom: 'Boite de vitesses', icon: '🔄', zones: ['Transmission','Barillet selecteur','Axe selecteur']},
+      {nom: 'Admission', icon: '💨', zones: ['Admission 1','Admission 2','Admission 3','Systeme AIS']},
+      {nom: 'Echappement', icon: '💨', zones: ['Echappement']},
+      {nom: 'Lubrification', icon: '🛢️', zones: ['Pompe a huile','Radiateur huile','Filtre a huile','Pompe a eau','Radiateur']}
+    ],
+    'carrosserie': [
+      {nom: 'Carenages', icon: '🏁', zones: ['Carenages 1','Carenages 2','Carenages 3']},
+      {nom: 'Habillage', icon: '🛡️', zones: ['Garde Boue','Couvercle lateral']}
+    ],
+    'alimentation': [
+      {nom: 'Reservoir', icon: '⛽', zones: ['Reservoir Selle']},
+      {nom: 'Sellerie', icon: '🪑', zones: ['Selle']}
+    ],
+    'electrique': [
+      {nom: 'Eclairage', icon: '💡', zones: ['Phare','Feu arriere','Clignotant']},
+      {nom: 'Tableau de bord', icon: '📊', zones: ['Compteur','Commodo levier']},
+      {nom: 'Faisceau', icon: '⚡', zones: ['Allumage','Partie electrique 1','Partie electrique 2','Partie electrique 3']}
+    ],
+    'freinage': [
+      {nom: 'Roues', icon: '🛞', zones: ['Roue Avant','Roue Arriere']},
+      {nom: 'Frein avant', icon: '🔴', zones: ['Etrier Frein Avant','Maitre cylindre avant']},
+      {nom: 'Frein arriere', icon: '🟠', zones: ['Etrier Frein Arriere','Maitre cylindre arriere']}
+    ],
+    'suspension': [
+      {nom: 'Fourche avant', icon: '🔩', zones: ['Fourche','Direction']},
+      {nom: 'Suspension arriere', icon: '🔧', zones: ['Bras arriere','Amortisseur Arriere']},
+      {nom: 'Ergonomie', icon: '🏍️', zones: ['Guidon et cables','Repose pieds']}
+    ]
+  };
+
   function toggleCat(cat, el) {
     var body = document.getElementById('cat-' + cat);
     if (!body) return;
@@ -293,44 +324,112 @@
     document.querySelectorAll('.cat-header').forEach(function(h) { h.classList.remove('open'); });
     if (!isOpen) {
       body.classList.add('open');
-      if (el) el.classList.add('open');
+      el.classList.add('open');
     }
+  }
+
+  function afficherSousCats(cat, el) {
+    document.querySelectorAll('.grande-cat').forEach(function(c) { c.classList.remove('selected'); });
+    el.classList.add('selected');
+    toggleCat(cat, document.querySelector('#cat-' + cat).previousElementSibling);
+    document.getElementById('zones-section').innerHTML = '';
+    document.getElementById('pieces-section').innerHTML = '';
+
+    var data = sousCatsData[cat] || [];
+    var html = '<div style="margin-top:20px;margin-bottom:8px;font-size:11px;color:#484f58;text-transform:uppercase;letter-spacing:2px;">Sous-categories</div>';
+    html += '<div class="sous-cats">';
+    data.forEach(function(sc, i) {
+      html += '<div class="sous-cat" onclick="afficherZonesBtns(' + i + ', \'' + cat + '\', this)">';
+      html += '<div class="sc-icon">' + sc.icon + '</div>';
+      html += '<div class="sc-nom">' + sc.nom + '</div>';
+      html += '<div class="sc-count">' + sc.zones.length + ' zone' + (sc.zones.length > 1 ? 's' : '') + '</div>';
+      html += '</div>';
+    });
+    html += '</div>';
+    document.getElementById('sous-cats-section').innerHTML = html;
+    window.currentCat = cat;
+  }
+
+  function afficherZonesBtns(index, cat, el) {
+    document.querySelectorAll('.sous-cat').forEach(function(c) { c.classList.remove('selected'); });
+    el.classList.add('selected');
+    document.getElementById('pieces-section').innerHTML = '';
+
+    var zones = sousCatsData[cat][index].zones;
+    var nom = sousCatsData[cat][index].nom;
+    var html = '<div style="margin-top:15px;margin-bottom:8px;font-size:11px;color:#484f58;text-transform:uppercase;letter-spacing:2px;">' + nom + '</div>';
+    html += '<div class="zones-buttons">';
+    zones.forEach(function(z) {
+      html += '<button class="zone-btn" onclick="afficherZoneDepuisBtn(\'' + z + '\', this)">' + z + '</button>';
+    });
+    html += '</div>';
+    document.getElementById('zones-section').innerHTML = html;
+  }
+
+  function afficherZoneDepuisBtn(zone, el) {
+    document.querySelectorAll('.zone-btn').forEach(function(b) { b.classList.remove('active'); });
+    el.classList.add('active');
+
+    var sideItem = document.querySelector('.zone-item.active');
+    if (sideItem) sideItem.classList.remove('active');
+
+    fetch('http://localhost:8080/api/pieces/' + encodeURIComponent(zone))
+      .then(function(r) { return r.json(); })
+      .then(function(pieces) {
+        var html = '<div class="pieces-section">';
+        html += '<div class="zone-title">' + zone + '</div>';
+        html += '<div class="zone-subtitle">Yamaha YZF-R1 2020 — ' + pieces.length + ' references</div>';
+        html += '<table><tr><th></th><th>Reference</th><th>Designation</th><th>Prix TTC</th></tr>';
+        pieces.forEach(function(p) {
+          var id = 'p_' + p.ref.replace(/[^a-zA-Z0-9]/g, '_');
+          html += '<tr><td class="check-cell"><input type="checkbox" id="' + id + '" onchange="togglePiece(this, \'' + p.ref + '\', \'' + p.nom.replace(/'/g, '') + '\', ' + p.prix + ')"></td>';
+          html += '<td class="ref-cell">' + p.ref + '</td>';
+          html += '<td>' + p.nom + '</td>';
+          html += '<td class="prix-cell">' + p.prix.toFixed(2) + ' €</td></tr>';
+        });
+        html += '</table>';
+        html += '<div class="total-bar"><div><span class="total-label">Total selection</span><br><span class="total-amount"><span id="total">0.00</span> €</span></div>';
+        html += '<div><button class="btn-devis" onclick="ouvrirPanier()">Voir le panier</button><button class="btn-reset" onclick="reinitialiser()">Reinitialiser</button></div></div>';
+        html += '</div>';
+        document.getElementById('pieces-section').innerHTML = html;
+        mettreAJourTotal();
+      });
   }
 
   function afficherZone(zone, el) {
     if (zoneActive) zoneActive.classList.remove('active');
     el.classList.add('active');
     zoneActive = el;
+    document.getElementById('sous-cats-section').innerHTML = '';
+    document.getElementById('zones-section').innerHTML = '';
+    document.querySelectorAll('.grande-cat').forEach(function(c) { c.classList.remove('selected'); });
 
     fetch('http://localhost:8080/api/pieces/' + encodeURIComponent(zone))
       .then(function(r) { return r.json(); })
       .then(function(pieces) {
-        var html = '<div class="zone-title">' + zone + '</div>';
+        var html = '<div class="pieces-section">';
+        html += '<div class="zone-title">' + zone + '</div>';
         html += '<div class="zone-subtitle">Yamaha YZF-R1 2020 — ' + pieces.length + ' references</div>';
         html += '<table><tr><th></th><th>Reference</th><th>Designation</th><th>Prix TTC</th></tr>';
         pieces.forEach(function(p) {
           var id = 'p_' + p.ref.replace(/[^a-zA-Z0-9]/g, '_');
-          html += '<tr>';
-          html += '<td class="check-cell"><input type="checkbox" id="' + id + '" onchange="togglePiece(this, \'' + p.ref + '\', \'' + p.nom.replace(/'/g, '') + '\', ' + p.prix + ')"></td>';
+          html += '<tr><td class="check-cell"><input type="checkbox" id="' + id + '" onchange="togglePiece(this, \'' + p.ref + '\', \'' + p.nom.replace(/'/g, '') + '\', ' + p.prix + ')"></td>';
           html += '<td class="ref-cell">' + p.ref + '</td>';
           html += '<td>' + p.nom + '</td>';
-          html += '<td class="prix-cell">' + p.prix.toFixed(2) + ' €</td>';
-          html += '</tr>';
+          html += '<td class="prix-cell">' + p.prix.toFixed(2) + ' €</td></tr>';
         });
         html += '</table>';
-        html += '<div class="total-bar"><div class="total-info"><span class="total-label">Total selection</span><span class="total-amount"><span id="total">0.00</span> €</span></div>';
+        html += '<div class="total-bar"><div><span class="total-label">Total selection</span><br><span class="total-amount"><span id="total">0.00</span> €</span></div>';
         html += '<div><button class="btn-devis" onclick="ouvrirPanier()">Voir le panier</button><button class="btn-reset" onclick="reinitialiser()">Reinitialiser</button></div></div>';
-        document.getElementById('main').innerHTML = html;
+        html += '</div>';
+        document.getElementById('pieces-section').innerHTML = html;
         mettreAJourTotal();
       });
   }
 
   function togglePiece(checkbox, ref, nom, prix) {
-    if (checkbox.checked) {
-      panier.push({ref: ref, nom: nom, prix: prix});
-    } else {
-      panier = panier.filter(function(p) { return p.ref !== ref; });
-    }
+    if (checkbox.checked) { panier.push({ref: ref, nom: nom, prix: prix}); }
+    else { panier = panier.filter(function(p) { return p.ref !== ref; }); }
     mettreAJourTotal();
     mettreAJourPanier();
   }
@@ -383,8 +482,7 @@
     var w = window.open('', '_blank');
     w.document.write('<html><head><title>Devis MotoChiffrage Pro</title>');
     w.document.write('<style>body{font-family:Arial;padding:40px;color:#333}h1{color:#e94560}table{width:100%;border-collapse:collapse;margin-top:20px}th{background:#f5f5f5;padding:10px;text-align:left}td{padding:10px;border-bottom:1px solid #eee}.total{font-size:24px;font-weight:bold;color:#e94560;margin-top:20px}</style>');
-    w.document.write('</head><body>');
-    w.document.write('<h1>MotoChiffrage Pro</h1><p>Date : ' + date + '</p><p>Vehicule : Yamaha YZF-R1 2020</p>');
+    w.document.write('</head><body><h1>MotoChiffrage Pro</h1><p>Date : ' + date + '</p><p>Vehicule : Yamaha YZF-R1 2020</p>');
     w.document.write('<table><tr><th>Reference</th><th>Designation</th><th>Prix TTC</th></tr>');
     panier.forEach(function(p) {
       w.document.write('<tr><td>' + p.ref + '</td><td>' + p.nom + '</td><td>' + p.prix.toFixed(2) + ' EUR</td></tr>');
