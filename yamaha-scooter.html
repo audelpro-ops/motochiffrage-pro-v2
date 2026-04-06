@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yamaha Scooter - MotoChiffrage Pro</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #080c14; color: #e6edf3; }
+
+    .header { background: #0d1117; padding: 20px 40px; border-bottom: 1px solid #1a2332; display: flex; align-items: center; gap: 20px; }
+    .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #484f58; }
+    .breadcrumb a { color: #e94560; text-decoration: none; }
+
+    .hero { background: linear-gradient(180deg, #0d1117, #080c14); padding: 40px 20px; text-align: center; border-bottom: 1px solid #1a2332; }
+    .hero h1 { font-size: 32px; font-weight: 800; color: #e6edf3; margin-bottom: 8px; }
+    .hero p { color: #484f58; font-size: 14px; }
+
+    .filters { background: #0d1117; padding: 15px 40px; border-bottom: 1px solid #1a2332; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    .filter-input { padding: 8px 15px; background: #080c14; border: 1px solid #1a2332; border-radius: 20px; color: #e6edf3; font-size: 13px; outline: none; width: 200px; }
+    .filter-input:focus { border-color: #e94560; }
+    .filter-input::placeholder { color: #484f58; }
+    .btn-filter { padding: 8px 16px; background: #080c14; border: 1px solid #1a2332; border-radius: 20px; color: #484f58; font-size: 12px; cursor: pointer; transition: all 0.2s; }
+    .btn-filter:hover, .btn-filter.active { background: #e94560; color: white; border-color: #e94560; }
+
+    .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+    .section-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+    .section-header h2 { font-size: 12px; color: #484f58; text-transform: uppercase; letter-spacing: 2px; white-space: nowrap; }
+    .section-line { flex: 1; height: 1px; background: #1a2332; }
+
+    .models-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin-bottom: 50px; }
+
+    .model-card { background: #0d1117; border: 1px solid #1a2332; border-radius: 12px; padding: 20px 15px; cursor: pointer; transition: all 0.3s; color: inherit; display: block; position: relative; overflow: hidden; }
+    .model-card:hover { border-color: #e94560; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(233,69,96,0.1); }
+    .model-type { font-size: 10px; color: #484f58; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+    .model-name { font-size: 20px; font-weight: 800; color: #e6edf3; margin-bottom: 4px; }
+    .model-cc { font-size: 12px; color: #58a6ff; margin-bottom: 15px; }
+    .model-badge { font-size: 9px; padding: 2px 8px; border-radius: 8px; display: inline-block; }
+    .badge-soon { background: rgba(72,79,88,0.2); color: #484f58; border: 1px solid #1a2332; }
+
+    .footer { text-align: center; padding: 30px; color: #484f58; font-size: 12px; border-top: 1px solid #1a2332; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="breadcrumb">
+    <a href="index.html">Accueil</a><span>›</span>
+    <a href="yamaha.html">Yamaha</a><span>›</span>
+    <span style="color:#e6edf3">Scooter</span>
+  </div>
+</div>
+
+<div class="hero">
+  <h1>🛵 Yamaha Scooter</h1>
+  <p>Selectionnez votre modele pour acceder au catalogue de pieces</p>
+</div>
+
+<div class="filters">
+  <input class="filter-input" type="text" placeholder="Rechercher..." oninput="filtrer(this.value)">
+  <button class="btn-filter active" onclick="filtrerType('tous', this)">Tous</button>
+  <button class="btn-filter" onclick="filtrerType('TMAX', this)">TMAX</button>
+  <button class="btn-filter" onclick="filtrerType('XMAX', this)">XMAX</button>
+  <button class="btn-filter" onclick="filtrerType('NMAX', this)">NMAX</button>
+  <button class="btn-filter" onclick="filtrerType('AEROX', this)">AEROX</button>
+</div>
+
+<div class="container">
+  <div class="section-header">
+    <h2>📦 Catalogue scooters</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="models-grid" id="grid-modeles">
+    <div style="color:#484f58;padding:20px">Chargement...</div>
+  </div>
+</div>
+
+<div class="footer">MotoChiffrage Pro — Yamaha Scooter</div>
+
+<script>
+var scooters = [
+  {nom:"TMAX", cc:"530", annee:"2012"},
+  {nom:"TMAX", cc:"530", annee:"2013"},
+  {nom:"TMAX", cc:"530", annee:"2014"},
+  {nom:"TMAX", cc:"530", annee:"2015"},
+  {nom:"TMAX", cc:"530", annee:"2016"},
+  {nom:"TMAX", cc:"530", annee:"2017"},
+  {nom:"TMAX", cc:"560", annee:"2019"},
+  {nom:"TMAX", cc:"560", annee:"2020"},
+  {nom:"TMAX", cc:"560", annee:"2021"},
+  {nom:"TMAX", cc:"560", annee:"2022"},
+  {nom:"TMAX", cc:"560", annee:"2023"},
+  {nom:"TMAX", cc:"500", annee:"2001"},
+  {nom:"TMAX", cc:"500", annee:"2004"},
+  {nom:"TMAX", cc:"500", annee:"2008"},
+  {nom:"TMAX", cc:"500", annee:"2011"},
+  {nom:"XMAX", cc:"125", annee:"2018"},
+  {nom:"XMAX", cc:"125", annee:"2019"},
+  {nom:"XMAX", cc:"125", annee:"2020"},
+  {nom:"XMAX", cc:"125", annee:"2021"},
+  {nom:"XMAX", cc:"125", annee:"2022"},
+  {nom:"XMAX", cc:"125", annee:"2023"},
+  {nom:"XMAX", cc:"300", annee:"2017"},
+  {nom:"XMAX", cc:"300", annee:"2018"},
+  {nom:"XMAX", cc:"300", annee:"2019"},
+  {nom:"XMAX", cc:"300", annee:"2020"},
+  {nom:"XMAX", cc:"300", annee:"2021"},
+  {nom:"XMAX", cc:"300", annee:"2022"},
+  {nom:"XMAX", cc:"300", annee:"2023"},
+  {nom:"XMAX", cc:"400", annee:"2013"},
+  {nom:"XMAX", cc:"400", annee:"2014"},
+  {nom:"XMAX", cc:"400", annee:"2015"},
+  {nom:"XMAX", cc:"400", annee:"2016"},
+  {nom:"NMAX", cc:"125", annee:"2015"},
+  {nom:"NMAX", cc:"125", annee:"2016"},
+  {nom:"NMAX", cc:"125", annee:"2017"},
+  {nom:"NMAX", cc:"125", annee:"2018"},
+  {nom:"NMAX", cc:"125", annee:"2019"},
+  {nom:"NMAX", cc:"125", annee:"2020"},
+  {nom:"NMAX", cc:"125", annee:"2021"},
+  {nom:"NMAX", cc:"125", annee:"2022"},
+  {nom:"NMAX", cc:"125", annee:"2023"},
+  {nom:"AEROX", cc:"155", annee:"2021"},
+  {nom:"AEROX", cc:"155", annee:"2022"},
+  {nom:"AEROX", cc:"155", annee:"2023"},
+  {nom:"AEROX", cc:"50", annee:"1998"},
+  {nom:"AEROX", cc:"50", annee:"2000"},
+  {nom:"AEROX", cc:"50", annee:"2005"},
+  {nom:"AEROX", cc:"50", annee:"2010"},
+  {nom:"TRICITY", cc:"125", annee:"2014"},
+  {nom:"TRICITY", cc:"125", annee:"2015"},
+  {nom:"TRICITY", cc:"125", annee:"2016"},
+  {nom:"TRICITY", cc:"125", annee:"2017"},
+  {nom:"TRICITY", cc:"300", annee:"2020"},
+  {nom:"TRICITY", cc:"300", annee:"2021"},
+  {nom:"TRICITY", cc:"300", annee:"2022"},
+  {nom:"MAJESTY", cc:"400", annee:"2004"},
+  {nom:"MAJESTY", cc:"400", annee:"2005"},
+  {nom:"MAJESTY", cc:"400", annee:"2008"},
+  {nom:"MAJESTY", cc:"400", annee:"2010"},
+  {nom:"MAJESTY", cc:"125", annee:"2000"},
+  {nom:"MAJESTY", cc:"125", annee:"2003"},
+  {nom:"YARIS", cc:"125", annee:"2020"},
+];
+
+var tousScooters = scooters;
+
+function afficherModeles(liste) {
+  var html = '';
+  liste.forEach(function(s) {
+    html += '<div class="model-card">';
+    html += '<div class="model-type">' + s.cc + ' cc</div>';
+    html += '<div class="model-name">' + s.nom + '</div>';
+    html += '<div class="model-cc">' + s.annee + '</div>';
+    html += '<span class="model-badge badge-soon">Bientot</span>';
+    html += '</div>';
+  });
+  document.getElementById('grid-modeles').innerHTML = html || '<div style="color:#484f58;padding:20px">Aucun modele</div>';
+}
+
+function filtrer(val) {
+  var res = tousScooters.filter(function(s) {
+    return (s.nom + s.cc + s.annee).toLowerCase().includes(val.toLowerCase());
+  });
+  afficherModeles(res);
+}
+
+function filtrerType(type, btn) {
+  document.querySelectorAll('.btn-filter').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  var res = type === 'tous' ? tousScooters : tousScooters.filter(function(s) {
+    return s.nom.toUpperCase().includes(type.toUpperCase());
+  });
+  afficherModeles(res);
+}
+
+afficherModeles(scooters);
+</script>
+
+</body>
+</html>

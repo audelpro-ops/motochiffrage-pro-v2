@@ -8,151 +8,140 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: Arial, sans-serif; background: #080c14; color: #e6edf3; }
 
-    .header {
-      background: #0d1117;
-      padding: 20px 40px;
-      border-bottom: 1px solid #1a2332;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
+    .header { background: #0d1117; padding: 20px 40px; border-bottom: 1px solid #1a2332; display: flex; align-items: center; }
+    .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #484f58; }
+    .breadcrumb a { color: #e94560; text-decoration: none; }
 
-    .header img { width: 100px; filter: brightness(1.1); }
-    .header h1 { font-size: 24px; color: #e6edf3; }
-    .header a { color: #e94560; text-decoration: none; font-size: 13px; display: block; margin-top: 4px; }
+    .hero { background: linear-gradient(180deg, #0d1117, #080c14); padding: 40px 20px; text-align: center; border-bottom: 1px solid #1a2332; }
+    .hero img { width: 120px; margin-bottom: 15px; }
+    .hero h1 { font-size: 32px; font-weight: 800; color: #e6edf3; margin-bottom: 8px; }
+    .hero p { color: #484f58; font-size: 14px; }
 
-    .container { max-width: 1100px; margin: 50px auto; padding: 0 20px; }
+    .container { max-width: 900px; margin: 60px auto; padding: 0 20px; }
 
-    .section-header {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      margin-bottom: 25px;
-    }
-
-    .section-header h2 {
-      font-size: 13px;
-      color: #484f58;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      white-space: nowrap;
-    }
-
+    .section-header { display: flex; align-items: center; gap: 15px; margin-bottom: 30px; }
+    .section-header h2 { font-size: 12px; color: #484f58; text-transform: uppercase; letter-spacing: 2px; white-space: nowrap; }
     .section-line { flex: 1; height: 1px; background: #1a2332; }
 
-    .categories-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 15px;
-      margin-bottom: 60px;
-    }
+    .cats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 
     .cat-card {
       background: #0d1117;
       border: 1px solid #1a2332;
-      border-radius: 14px;
-      padding: 30px 20px;
-      text-align: center;
+      border-radius: 16px;
+      overflow: hidden;
       cursor: pointer;
       transition: all 0.3s;
       text-decoration: none;
       color: inherit;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 12px;
     }
 
     .cat-card:hover {
       border-color: #e94560;
-      transform: translateY(-4px);
-      box-shadow: 0 10px 30px rgba(233,69,96,0.12);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(233,69,96,0.15);
     }
 
-    .cat-icon { font-size: 40px; }
-    .cat-name { font-size: 16px; font-weight: bold; color: #e6edf3; }
-    .cat-count { font-size: 12px; color: #484f58; }
-
-    .cat-badge {
-      font-size: 10px;
-      padding: 3px 10px;
-      border-radius: 10px;
-      background: rgba(63,185,80,0.1);
-      color: #3fb950;
-      border: 1px solid rgba(63,185,80,0.3);
+    .cat-img-container {
+      width: 100%;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
     }
 
-    .footer {
-      text-align: center;
-      padding: 30px;
-      color: #484f58;
-      font-size: 12px;
-      border-top: 1px solid #1a2332;
-      margin-top: 40px;
+    .cat-img-container.moto {
+      background: linear-gradient(135deg, #0a0f18, #111820);
     }
+
+    .cat-img-container.scooter {
+      background: linear-gradient(135deg, #0a1208, #111a0f);
+    }
+
+    .cat-emoji {
+      font-size: 100px;
+      transition: transform 0.3s;
+      filter: drop-shadow(0 10px 30px rgba(233,69,96,0.3));
+    }
+
+    .cat-card:hover .cat-emoji { transform: scale(1.1) rotate(-5deg); }
+
+    .cat-glow {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      filter: blur(40px);
+      opacity: 0.15;
+    }
+
+    .moto .cat-glow { background: #e94560; }
+    .scooter .cat-glow { background: #3fb950; }
+
+    .cat-info { padding: 20px 25px 25px; border-top: 1px solid #1a2332; }
+    .cat-name { font-size: 22px; font-weight: 800; color: #e6edf3; margin-bottom: 6px; }
+    .cat-desc { font-size: 13px; color: #484f58; margin-bottom: 12px; }
+    .cat-badge { font-size: 10px; padding: 3px 12px; border-radius: 10px; background: rgba(63,185,80,0.1); color: #3fb950; border: 1px solid rgba(63,185,80,0.3); display: inline-block; }
+
+    .footer { text-align: center; padding: 30px; color: #484f58; font-size: 12px; border-top: 1px solid #1a2332; margin-top: 60px; }
   </style>
 </head>
 <body>
 
 <div class="header">
-  <img src="https://fr.microfiches.net/thumbs/themes/micro/sites/200_200/Yamaha.webp" alt="Yamaha">
-  <div>
-    <h1>Yamaha</h1>
-    <a href="index.html">← Retour accueil</a>
+  <div class="breadcrumb">
+    <a href="index.html">Accueil</a>
+    <span>›</span>
+    <span style="color:#e6edf3">Yamaha</span>
   </div>
 </div>
 
-<div class="container">
+<div class="hero">
+  <img src="https://fr.microfiches.net/thumbs/themes/micro/sites/200_200/Yamaha.webp" alt="Yamaha">
+  <h1>Yamaha</h1>
+  <p>Pieces detachees officielles Yamaha — Prix constructeur</p>
+</div>
 
+<div class="container">
   <div class="section-header">
     <h2>Choisissez une categorie</h2>
     <div class="section-line"></div>
   </div>
 
-  <div class="categories-grid">
+  <div class="cats-grid">
 
     <a href="yamaha-moto.html" class="cat-card">
-      <div class="cat-icon">🏍️</div>
-      <div class="cat-name">Moto</div>
-      <div class="cat-count">Sport, Roadster, Trail...</div>
-      <span class="cat-badge">Disponible</span>
+      <div class="cat-img-container moto">
+        <div class="cat-glow"></div>
+        <div class="cat-emoji">🏍️</div>
+      </div>
+      <div class="cat-info">
+        <div class="cat-name">Moto</div>
+        <div class="cat-desc">R1, R6, MT-09, Tenere, XSR...</div>
+        <span class="cat-badge">448 modeles</span>
+      </div>
     </a>
 
-    <div class="cat-card">
-      <div class="cat-icon">🛵</div>
-      <div class="cat-name">Scooter</div>
-      <div class="cat-count">50cc a 560cc</div>
-      <span style="font-size:10px;padding:3px 10px;border-radius:10px;background:rgba(72,79,88,0.3);color:#484f58;border:1px solid #1a2332;">Bientot</span>
-    </div>
-
-    <div class="cat-card">
-      <div class="cat-icon">🏎️</div>
-      <div class="cat-name">Quad / ATV</div>
-      <div class="cat-count">50cc a 700cc</div>
-      <span style="font-size:10px;padding:3px 10px;border-radius:10px;background:rgba(72,79,88,0.3);color:#484f58;border:1px solid #1a2332;">Bientot</span>
-    </div>
-
-    <div class="cat-card">
-      <div class="cat-icon">🌊</div>
-      <div class="cat-name">Jet Ski</div>
-      <div class="cat-count">Waverunner</div>
-      <span style="font-size:10px;padding:3px 10px;border-radius:10px;background:rgba(72,79,88,0.3);color:#484f58;border:1px solid #1a2332;">Bientot</span>
-    </div>
-
-    <div class="cat-card">
-      <div class="cat-icon">❄️</div>
-      <div class="cat-name">Motoneige</div>
-      <div class="cat-count">80cc a 1000cc</div>
-      <span style="font-size:10px;padding:3px 10px;border-radius:10px;background:rgba(72,79,88,0.3);color:#484f58;border:1px solid #1a2332;">Bientot</span>
-    </div>
+    <a href="yamaha-scooter.html" class="cat-card">
+      <div class="cat-img-container scooter">
+        <div class="cat-glow"></div>
+        <div class="cat-emoji">🛵</div>
+      </div>
+      <div class="cat-info">
+        <div class="cat-name">Scooter</div>
+        <div class="cat-desc">TMAX, XMAX, NMAX, Aerox...</div>
+        <span class="cat-badge">Disponible</span>
+      </div>
+    </a>
 
   </div>
-
 </div>
 
-<div class="footer">
-  MotoChiffrage Pro — Yamaha pieces officielles
-</div>
+<div class="footer">MotoChiffrage Pro — Yamaha pieces officielles</div>
 
 </body>
 </html>
